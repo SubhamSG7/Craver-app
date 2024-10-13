@@ -2,28 +2,32 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const signInUser = createAsyncThunk(
-  "users/signInUser",
+  "users/signIn",
   async (userData, { rejectWithValue }) => {
+    console.log(userData);
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/users/register",
-        userData
-      );
-      console.log(response.data);
+      const url =
+        userData.role === undefined
+          ? "http://localhost:3000/api/users/register"
+          : `http://localhost:3000/api/${userData.role}/register`;
+      const response = await axios.post(url, userData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
 );
+
 export const loginUser = createAsyncThunk(
   "users/loginUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/users/login",
-        userData
-      );
+      const url =
+        userData.role === undefined
+          ? "http://localhost:3000/api/users/login"
+          : `http://localhost:3000/api/${userData.role}/login`;
+      console.log(url);
+      const response = await axios.post(url, userData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -38,9 +42,9 @@ const regex = {
 };
 
 const errMessage = {
-  email: "Provide a Valid Email",
-  phone: "Phone Number Must be 10 Characters Only Numbers",
-  password: "Password Should be minimum 6 characters and alphanumeric",
+  email: "Provide a valid email",
+  phone: "Phone number must be 10 characters only, containing numbers",
+  password: "Password should be minimum 6 characters and alphanumeric",
 };
 
 const usersSlice = createSlice({
@@ -52,6 +56,7 @@ const usersSlice = createSlice({
     signInError: null,
     loginStatus: null,
     loginError: null,
+    role: null,
   },
   reducers: {
     updateUserField: (state, action) => {
@@ -59,6 +64,9 @@ const usersSlice = createSlice({
       if (state.userData.hasOwnProperty(field)) {
         state.userData[field] = value;
       }
+    },
+    setRole: (state, action) => {
+      state.role = action.payload;
     },
     checkValidation: (state, action) => {
       const field = action.payload;
@@ -101,5 +109,6 @@ const usersSlice = createSlice({
   },
 });
 
-export const { updateUserField, checkValidation } = usersSlice.actions;
+export const { updateUserField, checkValidation, setRole } = usersSlice.actions;
+
 export default usersSlice.reducer;

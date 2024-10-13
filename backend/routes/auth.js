@@ -1,19 +1,27 @@
-const jwt = require("jsonwebtoken");
+const checkScope = (requiredScope) => {
+  return (req, res, next) => {
+    console.log(req?.cookies);
+    const token =
+      req.cookies.token || req.header("Authorization")?.replace("Bearer ", "");
 
-const authenticateToken = (req, res, next) => {
-  const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ message: "No token provided" });
+    }
 
-  if (!token) {
-    return res.status(401).json({ msg: "No token, authorization denied" });
-  }
+    try {
+      const decoded = jwt.verify(token, process.env.tokenSecret);
 
-  try {
-    const decoded = jwt.verify(token, "yourSecretKey");
-    req.user = decoded.id;
-    next();
-  } catch (error) {
-    res.status(401).json({ msg: "Token is not valid" });
-  }
+      if (!decoded.scope || decoded.scope !== requiredScope) {
+        return res
+          .status(403)
+          .json({ message: "Access denied. Insufficient scope." });
+      }
+
+      req.user = decoded;
+      next();
+    } catch (error) {
+      return res.status(403).json({ message: "Invalid or expired token" });
+    }
+  };
 };
-
-module.exports = authenticateToken;
+module.exports = checkScope;

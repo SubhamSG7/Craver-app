@@ -12,6 +12,11 @@ const userSchema = mongoose.Schema({
     unique: true,
     match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   },
+  confirmed: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
   phone: {
     type: String,
     required: true,
@@ -22,14 +27,17 @@ const userSchema = mongoose.Schema({
     required: true,
     minlength: 7,
   },
+  scope: {
+    type: String,
+    require: true,
+    default: "user",
+  },
 });
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
   }
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
