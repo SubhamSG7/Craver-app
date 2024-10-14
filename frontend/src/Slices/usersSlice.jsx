@@ -4,7 +4,6 @@ import axios from "axios";
 export const signInUser = createAsyncThunk(
   "users/signIn",
   async (userData, { rejectWithValue }) => {
-    console.log(userData);
     try {
       const url =
         userData.role === undefined
@@ -26,9 +25,10 @@ export const loginUser = createAsyncThunk(
         userData.role === undefined
           ? "http://localhost:3000/api/users/login"
           : `http://localhost:3000/api/${userData.role}/login`;
-      console.log(url);
-      const response = await axios.post(url, userData);
-      return response.data;
+      const response = await axios.post(url, userData,{
+        withCredentials:true
+      });
+      return response.data; 
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -57,6 +57,7 @@ const usersSlice = createSlice({
     loginStatus: null,
     loginError: null,
     role: null,
+    loggedUser:null,
   },
   reducers: {
     updateUserField: (state, action) => {
@@ -67,6 +68,9 @@ const usersSlice = createSlice({
     },
     setRole: (state, action) => {
       state.role = action.payload;
+    },
+    setLoggedUser:(state,action)=>{
+      state.loggedUser=action.payload
     },
     checkValidation: (state, action) => {
       const field = action.payload;
@@ -109,6 +113,6 @@ const usersSlice = createSlice({
   },
 });
 
-export const { updateUserField, checkValidation, setRole } = usersSlice.actions;
+export const { updateUserField, checkValidation, setRole ,setLoggedUser} = usersSlice.actions;
 
 export default usersSlice.reducer;

@@ -11,10 +11,7 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
-      <div className="h-[200px] w-full md:h-[300px]">
-        <Slider />
-      </div>
+    <div className="bg-gray-100 flex flex-col pb-11">
       <div className="flex flex-col items-center mt-2 flex-1 py-4 px-4">
         <h2 className="text-2xl font-bold mb-6 text-gray-700">
           Select the type of Signup

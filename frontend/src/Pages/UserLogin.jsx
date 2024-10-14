@@ -5,7 +5,7 @@ import {
   updateUserField,
 } from "../Slices/usersSlice";
 import ButtonLoader from "../Loaders/ButtonLoader";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 function UserLogin() {
@@ -19,6 +19,7 @@ function UserLogin() {
     const data = { email: userData.email, password: userData.password };
     const isValidForm = !Object.values(validationErr).some((err) => err !== "");
     if (isValidForm) {
+      localStorage.setItem("role",'user')
       dispatch(loginUser(data));
     }
   }
@@ -27,7 +28,7 @@ function UserLogin() {
   }
   useEffect(() => {
     if (loginStatus === "succeeded") {
-      navigate("/");
+      navigate("/logged");
     }
   }, [navigate, loginStatus]);
   return (
@@ -124,9 +125,11 @@ function UserLogin() {
 
         <p className="text-center text-gray-600 mt-6">
           Don't have an account?
-          <a href="#" className="text-blue-600 hover:underline">
+         <Link to="/signin">
+         <button className="text-blue-600 hover:underline">
             Sign up
-          </a>
+          </button>
+         </Link>
         </p>
       </div>
     </div>

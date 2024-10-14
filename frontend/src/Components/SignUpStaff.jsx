@@ -25,6 +25,7 @@ function SignUpStaff() {
     };
     const isValidForm = !Object.values(validationErr).some((err) => err !== "");
     if (isValidForm) {
+      localStorage.setItem()
       dispatch(signInUser(data));
     }
   }

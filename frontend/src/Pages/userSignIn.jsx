@@ -29,9 +29,7 @@ function UserSignIn() {
 
   useEffect(() => {
     if (signInStatus === "succeeded") {
-      console.log(signInStatus);
-      console.log("chla");
-      // navigate("/login");
+      navigate("/login");
     }
   }, [signInStatus, navigate]);
 

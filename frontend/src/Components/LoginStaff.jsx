@@ -14,6 +14,8 @@ function LoginStaff() {
   const navigate = useNavigate();
   const { validationErr, userData, loginStatus, loginError, role } =
     useSelector((state) => state.users);
+    console.log(loginError,loginStatus);
+    
   function handleLogIn(e) {
     e.preventDefault();
     const data = {
@@ -24,12 +26,14 @@ function LoginStaff() {
     };
     const isValidForm = !Object.values(validationErr).some((err) => err !== "");
     if (isValidForm) {
+      localStorage.setItem("role",role)
       dispatch(loginUser(data));
     }
   }
   useEffect(() => {
     if (loginStatus === "succeeded") {
-      navigate(`/${role}Home`);
+      
+      navigate(`/logged`);
     }
   }, [loginStatus, navigate]);
   return (

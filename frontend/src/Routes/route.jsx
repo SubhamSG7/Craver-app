@@ -8,13 +8,17 @@ import UserSignIn from "../Pages/userSignIn";
 import SignUpStaff from "../Components/SignUpStaff";
 import LoginStaff from "../Components/LoginStaff";
 import StaffHome from "../Components/StaffHome";
-import AdminHome from "../Components/AdminHome";
 import PrivateRoute from "../Components/PrivateRoute";
 import AddRestaurant from "../Components/AddRestaurant";
-import { fetchRestaurants } from "./LoaderApi";
+import { fetchRestaurants} from "./LoaderApi";
 import Orders from "../Pages/Orders";
 import Cart from "../Pages/Cart";
-
+import Profile from "../Pages/Profile";
+import Logged from "../Components/Logged";
+import AssignRole from "../Components/AssignRole";
+import AddCusine from "../Components/AddCusine";
+import Editcuisine from "../Components/Editcuisine";
+import TrackOrders from "../Components/TrackOrders";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -31,16 +35,58 @@ const routes = createBrowserRouter([
       { path: "orders", element: <Orders /> },
       { path: "cart", element: <Cart /> },
       {
-        path: "adminHome",
+        path: "logged",
         element: (
           <PrivateRoute>
-            <AdminHome />
+            <Logged />
           </PrivateRoute>
         ),
       },
       {
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "assignrole",
+        element: (
+          <PrivateRoute>
+            <AssignRole />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "addcuisine",
+        element: (
+          <PrivateRoute>
+            <AddCusine />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "editcuisine",
+        element: (
+          <PrivateRoute>
+            <Editcuisine />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "trackorders",
+        element: (
+          <TrackOrders>
+            <Editcuisine />
+          </TrackOrders>
+        ),
+      },
+      {
         path: "addrestaurant",
-        element: <AddRestaurant />,
+        element: <PrivateRoute>
+          <AddRestaurant />
+        </PrivateRoute>,
       },
     ],
   },
