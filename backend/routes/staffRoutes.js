@@ -2,12 +2,13 @@ const express = require("express");
 const Staff = require("../models/staff");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const getrestaurant=require("../controllers/getrestaurant");
+const saveCategory=require("../controllers/saveCategory");
 require("dotenv").config();
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
-
   try {
     let staff = await Staff.findOne({ email });
     if (staff) {
@@ -74,7 +75,6 @@ router.get("/confirm/:token", async (req, res) => {
   }
 });
 
-// Staff login route
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -111,5 +111,6 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 });
-
+router.get("/getrestaurant",getrestaurant)
+router.post("/addcategory",saveCategory)
 module.exports = router;

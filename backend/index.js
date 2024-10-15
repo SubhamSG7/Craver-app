@@ -10,6 +10,7 @@ const staffRoutes = require("./routes/staffRoutes");
 const adminScope = require("./routes/scope");
 const restaurantRoutes = require("./routes/restaurantRoutes");
 const restaurantApi = require("./routes/restaurantApi");
+const logoutRoutes=require("./routes/logoutRoutes");
 const connectDB = require("./config/database");
 const cookieParser = require("cookie-parser");
 const upload = require("./multer/multer");
@@ -20,9 +21,8 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.json());
 const corsOptions = {
-  origin: "http://localhost:5173",
-  methods: ["GET", "POST"],
-  credentials: true,
+  origin: "http://localhost:5173", 
+  credentials: true, 
 };
 
 app.use(cors(corsOptions));
@@ -38,6 +38,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/staff", staffRoutes);
 app.use("/api/scope", adminScope);
 app.use("/api/get",restaurantApi);
+app.use("/api/logout",logoutRoutes);
 app.get("/", (req, res) => res.send("Hello World!"));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

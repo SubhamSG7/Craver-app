@@ -4,32 +4,32 @@ import { useSelector } from "react-redux";
 
 function Header() {
   const location = useLocation();
-  const role=localStorage.getItem("role");
+  const role = localStorage.getItem("role");
 
   const roleBased = {
     admin: ['home', 'addrestaurant', 'assignrole', 'profile'],
     user: ['home', 'orders', 'cart', 'profile'],
-    staff: ['home', 'addcuisine', 'editcuisine', 'trackorders', 'profile'],
+    staff: ['home', 'addcategory', 'editcuisine', 'trackorders', 'profile'],
   };
 
   const getButtonStyle = (locate) => {
     return location.pathname === locate
-      ? "bg-[#f77f00]" 
+      ? "bg-[#40a62e]" 
       : "bg-[#d6bcbd]";
   };
 
   return (
-    <header className="bg-[#AB886D] rounded text-white p-4 shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
+    <header className="bg-[#4045d3] rounded text-white p-4 shadow-md h-[15vh]">
+      <div className="container mx-auto flex justify-between items-center h-full">
         <img className="w-20 h-14 rounded" src={logo} alt="Logo" />
-        <nav>
+        <nav className="ml-auto">
           {role ? (
             <ul className="flex space-x-4">
               {roleBased[role]?.map((val) => (
                 <li key={val}>
-                  <Link to={`/${val==="home"?'':val}`}>
-                    <button className={`py-2 px-4 rounded text-white hover:bg-[#c7a4a4] transition-colors duration-300 ${getButtonStyle(`/${val==="home"?'':val}`)}`}>
-                      {val.charAt(0).toUpperCase() + val.slice(1)} 
+                  <Link to={`/${val === "home" ? '' : val}`}>
+                    <button className={`py-2 px-4 rounded text-2xl text-white hover:bg-[#e68926] transition-colors duration-300 ${getButtonStyle(`/${val === "home" ? '' : val}`)}`}>
+                      {val.charAt(0).toUpperCase() + val.slice(1)}
                     </button>
                   </Link>
                 </li>

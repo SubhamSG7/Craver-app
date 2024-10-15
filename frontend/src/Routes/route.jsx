@@ -16,9 +16,9 @@ import Cart from "../Pages/Cart";
 import Profile from "../Pages/Profile";
 import Logged from "../Components/Logged";
 import AssignRole from "../Components/AssignRole";
-import AddCusine from "../Components/AddCusine";
 import Editcuisine from "../Components/Editcuisine";
 import TrackOrders from "../Components/TrackOrders";
+import AddCategory from "../Components/AddCategory";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -59,10 +59,10 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: "addcuisine",
+        path: "addcategory",
         element: (
           <PrivateRoute>
-            <AddCusine />
+            <AddCategory />
           </PrivateRoute>
         ),
       },

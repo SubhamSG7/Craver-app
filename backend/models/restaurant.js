@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Define the schema for the restaurant
 const restaurantSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -35,6 +34,15 @@ const restaurantSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  category:{
+    type:[String],
+    default:[],
+    require:true
+  },cuisine:{
+    type:[String],
+    default:[],
+    require:true
+  }
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
