@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Admin = require("../models/admin");
-const User=require("../models/staff");
-const Restaurant=require("../models/restaurant");
-const updatestaff=require("../controllers/updateStaff")
+const User = require("../models/staff");
+const Restaurant = require("../models/restaurant");
+const updatestaff = require("../controllers/updateStaff");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
@@ -112,8 +112,8 @@ router.post("/login", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 60 * 60 * 1000,
-      sameSite:"none",
-      secure:true
+      sameSite: "none",
+      secure: true,
     });
 
     res.status(200).json({ msg: "Login successful", admin });
@@ -122,8 +122,8 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 });
-router.get("/assignstaff",async(req,res)=>{
-  let token=  req?.cookies?.token
+router.get("/assignstaff", async (req, res) => {
+  let token = req?.cookies?.token;
   let restaurantlist;
   if (!token) {
     return res.status(401).json({ message: "Unauthorized: No token provided" });
@@ -131,35 +131,37 @@ router.get("/assignstaff",async(req,res)=>{
   try {
     const decoded = jwt.verify(token, process.env.tokenSecret);
     try {
-      const restaurants=await Restaurant.find();
-      restaurantlist=restaurants.map(({_id,name})=>({
+      const restaurants = await Restaurant.find();
+      restaurantlist = restaurants.map(({ _id, name }) => ({
         _id,
-        name
-      }))
-      restaurantlist.push({_id:99,name:'not Assigned'})
-    } catch (error) {
-     console.log(error);
-     res.status(400).json({message:"Error to fetch RestaurantList"})
-    }
-    try {
-      const users=await User.find();
-      const staffData = users.map(({ _id, name, email, restaurant, approved }) => ({
-         _id,
         name,
-        email,
-        restaurant,
-        approved,
       }));
-  
-      res.status(200).json({message:"success",staffData,restaurantlist})
+      restaurantlist.push({ _id: 99, name: "not Assigned" });
     } catch (error) {
       console.log(error);
-      res.status(400).json({message:"Error to fetch stafflist"})
+      res.status(400).json({ message: "Error to fetch RestaurantList" });
+    }
+    try {
+      const users = await User.find();
+      const staffData = users.map(
+        ({ _id, name, email, restaurant, approved }) => ({
+          _id,
+          name,
+          email,
+          restaurant,
+          approved,
+        })
+      );
+
+      res.status(200).json({ message: "success", staffData, restaurantlist });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ message: "Error to fetch stafflist" });
     }
   } catch (error) {
     console.error("Token verification failed:", error);
     return res.status(403).json({ message: "Forbidden: Invalid token" });
   }
-})
-router.put("/updatestaff",updatestaff)
+});
+router.put("/updatestaff", updatestaff);
 module.exports = router;

@@ -9,7 +9,6 @@ const getGeoloaction = require("../thirdPartyApi/getGeoloaction");
 router.post("/", upload.single("image"), async (req, res) => {
   try {
     const { name, address, about } = req.body;
-    console.log(about);
     const image = req.file;
     const addressfromGeoloaction = await getGeoloaction(address);
     const uploadResponse = await cloudinary.uploader.upload(image.path, {

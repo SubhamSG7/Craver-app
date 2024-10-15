@@ -1,0 +1,209 @@
+[
+  {
+    "name": "Paneer Butter Masala",
+    "image": "https://silkroadrecipes.com/wp-content/uploads/2021/12/Paneer-Butter-Masala-square.jpg",
+    "description": "Creamy and mildly spiced paneer curry cooked in a rich tomato-based gravy.",
+    "price": 250,
+    "discount": 10,
+    "category": "Main Course",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Chicken Biryani",
+    "image": "https://static.tnn.in/thumb/msid-105675192,thumbsize-89532,width-1280,height-720,resizemode-75/105675192.jpg?quality=100",
+    "description": "Fragrant basmati rice cooked with spiced chicken, saffron, and herbs.",
+    "price": 350,
+    "discount": 15,
+    "category": "Rice",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Masala Dosa",
+    "image": "https://revi.b-cdn.net/wp-content/uploads/2017/03/masala-dosa-vert.jpg",
+    "description": "Crispy rice pancake filled with a spiced potato filling, served with chutney and sambar.",
+    "price": 120,
+    "discount": 5,
+    "category": "Snacks",
+    "cuisine": "South Indian"
+  },
+  {
+    "name": "Butter Naan",
+    "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgr8j6RlKvxLpclkrA9axKWr0qxsX2tXibKsEyWD3t_7h1cUADbrJI1c-MabXGzKHMXSheA4ZUUd6wowJPGLYINC3PusFOgII9e68ga0WZs8X4TqsrD_osxg0HQk-KUbGoNguUtYqk26tJ8/s1600/homemade-butter-naan-recipe-nairobi-kitchen-1.jpeg",
+    "description": "Soft and fluffy naan bread brushed with butter, perfect accompaniment to curries.",
+    "price": 50,
+    "discount": 0,
+    "category": "Breads",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Tandoori Chicken",
+    "image": "https://static01.nyt.com/images/2024/05/16/multimedia/fs-tandoori-chicken-hmjq-copy-NL/fs-tandoori-chicken-hmjq-jumbo.jpg?quality=75&auto=webp",
+    "description": "Chicken marinated in yogurt and spices, cooked in a tandoor until perfectly charred.",
+    "price": 450,
+    "discount": 20,
+    "category": "Starters",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Gulab Jamun",
+    "image": "https://static01.nyt.com/images/2023/10/19/multimedia/ND-Gulab-Jamun-tqgl/ND-Gulab-Jamun-tqgl-master768.jpg?quality=75&auto=webp",
+    "description": "Soft and juicy milk-based sweet dumplings soaked in sugar syrup.",
+    "price": 80,
+    "discount": 5,
+    "category": "Desserts",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Palak Paneer",
+    "image": "https://www.vegrecipesofindia.com/wp-content/uploads/2021/06/palak-paneer-1-1024x1536.jpg",
+    "description": "Paneer cubes cooked in a smooth spinach gravy, seasoned with spices.",
+    "price": 220,
+    "discount": 10,
+    "category": "Main Course",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Chole Bhature",
+    "image": "https://www.chefajaychopra.com/assets/img/recipe/1-1665826648AuthenticCholeyBhaturewebp.webp",
+    "description": "Spicy chickpea curry served with deep-fried bread.",
+    "price": 200,
+    "discount": 5,
+    "category": "Main Course",
+    "cuisine": "North Indian"
+  },
+  {
+    "name": "Dal Makhani",
+    "image": "https://www.vegrecipesofindia.com/wp-content/uploads/2024/02/dal-makhani-recipe-1-1024x1536.jpg",
+    "description": "Creamy black lentils cooked slowly with spices, finished with butter.",
+    "price": 180,
+    "discount": 0,
+    "category": "Main Course",
+    "cuisine": "North Indian"
+  },
+  {
+    "name": "Fish Curry",
+    "image": "https://www.priyom.in/wp-content/uploads/2022/05/recipe-3.png",
+    "description": "Fish pieces cooked in a spicy coconut-based gravy.",
+    "price": 400,
+    "discount": 15,
+    "category": "Main Course",
+    "cuisine": "South Indian"
+  },
+  {
+    "name": "Vegetable Samosa",
+    "image": "https://cookingwithparita.com/wp-content/uploads/2022/04/F4A6412-525x550.jpg",
+    "description": "Crispy pastry filled with spiced potatoes and peas.",
+    "price": 60,
+    "discount": 0,
+    "category": "Snacks",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Raita",
+    "image": "https://indianambrosia.com/wp-content/uploads/2021/08/onion-raita_3859-1.jpg",
+    "description": "Yogurt-based side dish with cucumber and spices, perfect for cooling down spicy dishes.",
+    "price": 40,
+    "discount": 0,
+    "category": "Sides",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Vegetable Biryani",
+    "image": "https://images.getrecipekit.com/20211124220241-veg-20biryani.jpg?width=650&quality=90&auto_optimize=medium",
+    "description": "Aromatic basmati rice layered with spiced vegetables and herbs.",
+    "price": 300,
+    "discount": 10,
+    "category": "Rice",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Pav Bhaji",
+    "image": "https://amritsruae.com/blog/wp-content/uploads/2022/03/Pav-Bhaji-870x635-1.jpg",
+    "description": "A spicy vegetable mash served with buttered bread rolls.",
+    "price": 130,
+    "discount": 0,
+    "category": "Snacks",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Aloo Tikki",
+    "image": "https://www.vegrecipesofindia.com/wp-content/uploads/2022/07/aloo-tikki-1-1024x1536.jpg",
+    "description": "Spiced potato patties served with tamarind chutney.",
+    "price": 70,
+    "discount": 0,
+    "category": "Snacks",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Lassi",
+    "image": "https://www.allrecipes.com/thmb/7NZdKDVA2p8fVKqOP9PBbHp58NY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Indian-Lassi-4x3-1-2000-02cd65d95cb447e48e374bd8884be481.jpg",
+    "description": "A refreshing yogurt drink, available in sweet or salted varieties.",
+    "price": 60,
+    "discount": 5,
+    "category": "Beverages",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Pani Puri",
+    "image": "https://www.sidechef.com/recipe/3883dffb-5fa2-4ee9-8054-d8de1409899f.jpg?d=1408x1120",
+    "description": "Crispy hollow puris filled with spicy tamarind water and chickpeas.",
+    "price": 50,
+    "discount": 0,
+    "category": "Snacks",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Egg Curry",
+    "image": "https://static01.nyt.com/images/2020/03/04/dining/tr-egg-curry/merlin_169211805_227972c0-43d1-4f25-9643-9568331d8adb-master768.jpg?quality=75&auto=webp",
+    "description": "Hard-boiled eggs cooked in a spicy onion-tomato gravy.",
+    "price": 180,
+    "discount": 0,
+    "category": "Main Course",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Kadai Paneer",
+    "image": "https://www.homemakerjob.com/wp-content/uploads/2023/04/Kadai-kadhai-karahi-paneer-gravy-masala-curry-restaurant-style-recipe-main-photo-image-pic-by-homemakerjob.com_.jpg",
+    "description": "Paneer cubes cooked with bell peppers and spices in a wok.",
+    "price": 250,
+    "discount": 10,
+    "category": "Main Course",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Vegetable Fried Rice",
+    "image": "https://www.seriouseats.com/thmb/BGV4Y7c0Kv2Ri-dmutNgCcble9w=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/easy-vegetable-fried-rice-recipe-hero-2-fed2a62b8bce4c51b945d9c24c2edb68.jpg",
+    "description": "Stir-fried rice with mixed vegetables and soy sauce.",
+    "price": 150,
+    "discount": 5,
+    "category": "Rice",
+    "cuisine": "Chinese"
+  },
+  {
+    "name": "Dhokla",
+    "image": "https://www.cookwithnabeela.com/wp-content/uploads/2024/02/KhamanDhokla1.webp",
+    "description": "Steamed savory cake made from fermented chickpea batter.",
+    "price": 80,
+    "discount": 0,
+    "category": "Snacks",
+    "cuisine": "Gujarati"
+  },
+  {
+    "name": "Malai Kofta",
+    "image": "https://www.aromaandessence.com/wp-content/uploads/2023/05/Malai-kofta.webp",
+    "description": "Fried dumplings made of paneer and potatoes in a creamy gravy.",
+    "price": 270,
+    "discount": 10,
+    "category": "Main Course",
+    "cuisine": "Indian"
+  },
+  {
+    "name": "Coconut Chutney",
+    "image": "https://www.vegrecipesofindia.com/wp-content/uploads/2010/07/coconut-chutney-easy-500x500.jpg",
+    "description": "A refreshing chutney made from grated coconut and spices.",
+    "price": 30,
+    "discount": 0,
+    "category": "Sides",
+    "cuisine": "South Indian"
+  }
+]

@@ -1,9 +1,10 @@
 const express = require("express");
 const Staff = require("../models/staff");
+const upload = require("../multer/multer");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const getrestaurant=require("../controllers/getrestaurant");
-const saveCategory=require("../controllers/saveCategory");
+const getrestaurant = require("../controllers/getrestaurant");
+const saveCategory = require("../controllers/saveCategory");
 require("dotenv").config();
 const router = express.Router();
 
@@ -18,9 +19,13 @@ router.post("/register", async (req, res) => {
     staff = new Staff({ name, email, password });
     await staff.save();
 
-    const token = jwt.sign({ id: staff._id,scope:staff.scope }, process.env.tokenSecret, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { id: staff._id, scope: staff.scope },
+      process.env.tokenSecret,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     const confirmUrl = `${req.protocol}://${req.get(
       "host"
@@ -95,9 +100,13 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ msg: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ id: staff._id,scope:staff.scope }, process.env.tokenSecret, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { id: staff._id, scope: staff.scope },
+      process.env.tokenSecret,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     res.cookie("token", token, {
       httpOnly: true,
@@ -111,6 +120,6 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 });
-router.get("/getrestaurant",getrestaurant)
-router.post("/addcategory",saveCategory)
+router.get("/getrestaurant", getrestaurant);
+router.post("/addcategory", upload.single('image'), saveCategory);
 module.exports = router;
