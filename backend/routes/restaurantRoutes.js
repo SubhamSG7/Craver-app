@@ -4,7 +4,9 @@ const upload = require("../multer/multer");
 const cloudinary = require("../config/cloudinary");
 const fs = require("fs");
 const Restaurant = require("../models/restaurant");
+const Category=require("../models/category");
 const getGeoloaction = require("../thirdPartyApi/getGeoloaction");
+const getCategories=require("../controllers/getCategories")
 
 router.post("/", upload.single("image"), async (req, res) => {
   try {
@@ -49,5 +51,5 @@ router.post("/", upload.single("image"), async (req, res) => {
     });
   }
 });
-
+router.get("/getcategories",getCategories)
 module.exports = router;

@@ -19,6 +19,7 @@ import AssignRole from "../Components/AssignRole";
 import Editcuisine from "../Components/Editcuisine";
 import TrackOrders from "../Components/TrackOrders";
 import AddCategory from "../Components/AddCategory";
+import Restaurant from "../Pages/Restaurant";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -34,6 +35,11 @@ const routes = createBrowserRouter([
       { path: "staffHome", element: <StaffHome /> },
       { path: "orders", element: <Orders /> },
       { path: "cart", element: <Cart /> },
+      {
+        path:"restaurant/:id", element:<PrivateRoute>
+          <Restaurant/>
+        </PrivateRoute>
+      },
       {
         path: "logged",
         element: (

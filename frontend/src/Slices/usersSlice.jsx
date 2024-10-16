@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 export const signInUser = createAsyncThunk(
   "users/signIn",
@@ -25,10 +26,10 @@ export const loginUser = createAsyncThunk(
         userData.role === undefined
           ? "http://localhost:3000/api/users/login"
           : `http://localhost:3000/api/${userData.role}/login`;
-      const response = await axios.post(url, userData,{
-        withCredentials:true
+      const response = await axios.post(url, userData, {
+        withCredentials: true,
       });
-      return response.data; 
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -57,7 +58,7 @@ const usersSlice = createSlice({
     loginStatus: null,
     loginError: null,
     role: null,
-    loggedUser:null,
+    loggedUser: null,
   },
   reducers: {
     updateUserField: (state, action) => {
@@ -69,8 +70,8 @@ const usersSlice = createSlice({
     setRole: (state, action) => {
       state.role = action.payload;
     },
-    setLoggedUser:(state,action)=>{
-      state.loggedUser=action.payload
+    setLoggedUser: (state, action) => {
+      state.loggedUser = action.payload;
     },
     checkValidation: (state, action) => {
       const field = action.payload;
@@ -94,10 +95,12 @@ const usersSlice = createSlice({
       })
       .addCase(signInUser.fulfilled, (state, action) => {
         state.signInStatus = "succeeded";
+        toast.success("Sign in successful!"); 
       })
       .addCase(signInUser.rejected, (state, action) => {
         state.signInStatus = "failed";
         state.signInError = action.payload;
+        toast.error(`Sign in failed: ${action.payload}`); 
       })
       .addCase(loginUser.pending, (state) => {
         state.loginStatus = "loading";
@@ -105,14 +108,16 @@ const usersSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loginStatus = "succeeded";
         state.userData = action.payload.user;
+        toast.success("Login successful!"); 
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loginStatus = "failed";
         state.loginError = action.payload;
+        toast.error(`Login failed: ${action.payload}`);
       });
   },
 });
 
-export const { updateUserField, checkValidation, setRole ,setLoggedUser} = usersSlice.actions;
+export const { updateUserField, checkValidation, setRole, setLoggedUser } = usersSlice.actions;
 
 export default usersSlice.reducer;

@@ -9,7 +9,6 @@ import { updateStaff } from '../Api/AdminApi';
 function AssignRole() {
   const { status, staffData, restaurantData } = useSelector(state => state.loader);
   const dispatch = useDispatch();
-
   async function fetchRoleToAssign() {
     try {
       const resp = await axios.get("http://localhost:3000/api/admin/assignstaff", { withCredentials: true });

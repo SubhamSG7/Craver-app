@@ -1,12 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { sendRestaurantData } from "../Api/restaurantApi";
 
+
 const restaurantSlice = createSlice({
   name: "restaurant",
   initialState: {
     restaurantData: { name: "", address: "", about: "" },
     loading: null,
     error: null,
+    userLongitude:null,
+    userLatitude:null,
+    allRestaurant:[]
   },
   reducers: {
     editRestaurantData: (state, action) => {
@@ -16,6 +20,15 @@ const restaurantSlice = createSlice({
         state.restaurantData[field] = value;
       }
     },
+    setLocation:(state,action)=>{
+      const {longitude,latitude}=action.payload
+      state.userLongitude=longitude;
+      state.userLatitude=latitude
+    },
+    setAllRestaurant:(state,action)=>{
+      const restaurantList=action.payload;
+      restaurantList
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -33,5 +46,5 @@ const restaurantSlice = createSlice({
       });
   },
 });
-export const { editRestaurantData } = restaurantSlice.actions;
+export const { editRestaurantData,setLocation,setAllRestaurant } = restaurantSlice.actions;
 export default restaurantSlice.reducer;

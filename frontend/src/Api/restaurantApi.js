@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+const url=import.meta.env.VITE_BACKEND_API
 export const sendRestaurantData = createAsyncThunk(
   "restaurant/sendRestaurantData",
   async (formData, { rejectWithValue }) => {
@@ -9,7 +9,7 @@ export const sendRestaurantData = createAsyncThunk(
     }
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/restaurant",
+        `${url}/api/restaurant`,
         formData,
         {
           headers: {
