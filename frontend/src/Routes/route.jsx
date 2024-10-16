@@ -10,7 +10,7 @@ import LoginStaff from "../Components/LoginStaff";
 import StaffHome from "../Components/StaffHome";
 import PrivateRoute from "../Components/PrivateRoute";
 import AddRestaurant from "../Components/AddRestaurant";
-import { fetchRestaurants} from "./LoaderApi";
+import { fetchRestaurants } from "./LoaderApi";
 import Orders from "../Pages/Orders";
 import Cart from "../Pages/Cart";
 import Profile from "../Pages/Profile";
@@ -36,9 +36,12 @@ const routes = createBrowserRouter([
       { path: "orders", element: <Orders /> },
       { path: "cart", element: <Cart /> },
       {
-        path:"restaurant/:id", element:<PrivateRoute>
-          <Restaurant/>
-        </PrivateRoute>
+        path: "restaurant/:id",
+        element: (
+          <PrivateRoute>
+            <Restaurant />
+          </PrivateRoute>
+        ),
       },
       {
         path: "logged",
@@ -90,9 +93,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "addrestaurant",
-        element: <PrivateRoute>
-          <AddRestaurant />
-        </PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <AddRestaurant />
+          </PrivateRoute>
+        ),
       },
     ],
   },

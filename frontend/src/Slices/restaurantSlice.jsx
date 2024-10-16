@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { sendRestaurantData } from "../Api/restaurantApi";
-
+import { LocationCalculator } from "../Handlers/LocationCalculator";
 
 const restaurantSlice = createSlice({
   name: "restaurant",
@@ -8,9 +8,9 @@ const restaurantSlice = createSlice({
     restaurantData: { name: "", address: "", about: "" },
     loading: null,
     error: null,
-    userLongitude:null,
-    userLatitude:null,
-    allRestaurant:[]
+    userLongitude: null,
+    userLatitude: null,
+    allRestaurant: [],
   },
   reducers: {
     editRestaurantData: (state, action) => {
@@ -20,15 +20,27 @@ const restaurantSlice = createSlice({
         state.restaurantData[field] = value;
       }
     },
-    setLocation:(state,action)=>{
-      const {longitude,latitude}=action.payload
-      state.userLongitude=longitude;
-      state.userLatitude=latitude
+    setLocation: (state, action) => {
+      const { longitude, latitude } = action.payload;
+      state.userLongitude = longitude;
+      state.userLatitude = latitude;
     },
-    setAllRestaurant:(state,action)=>{
-      const restaurantList=action.payload;
-      restaurantList
-    }
+    setAllRestaurant: (state, action) => {
+      let restaurantList = action.payload;
+      const thresholdDistance = 500;
+      restaurantList = restaurantList.filter((val) => {
+        const { latitude, longitude } = val.geolocation;
+        const distance = LocationCalculator(
+          state.userLatitude,
+          state.userLongitude,
+          latitude,
+          longitude
+        );
+        return distance <= thresholdDistance;
+      });
+
+      state.allRestaurant = restaurantList;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -46,5 +58,6 @@ const restaurantSlice = createSlice({
       });
   },
 });
-export const { editRestaurantData,setLocation,setAllRestaurant } = restaurantSlice.actions;
+export const { editRestaurantData, setLocation, setAllRestaurant } =
+  restaurantSlice.actions;
 export default restaurantSlice.reducer;
