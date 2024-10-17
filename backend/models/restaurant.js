@@ -42,6 +42,11 @@ const restaurantSchema = new mongoose.Schema({
     type:[String],
     default:[],
     require:true
+  },
+  placedorders:{
+    type:[String],
+    default:[],
+    require:true
   }
 });
 

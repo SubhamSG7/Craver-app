@@ -6,7 +6,9 @@ const fs = require("fs");
 const Restaurant = require("../models/restaurant");
 const Category=require("../models/category");
 const getGeoloaction = require("../thirdPartyApi/getGeoloaction");
-const getCategories=require("../controllers/getCategories")
+const getCategories=require("../controllers/getCategories");
+const placeOrder=require("../controllers/placeOrder");
+const getAddress=require("../controllers/getAddress")
 
 router.post("/", upload.single("image"), async (req, res) => {
   try {
@@ -51,5 +53,7 @@ router.post("/", upload.single("image"), async (req, res) => {
     });
   }
 });
+router.post("/placeorder",placeOrder)
 router.get("/getcategories",getCategories)
+router.get("/getaddress",getAddress);
 module.exports = router;

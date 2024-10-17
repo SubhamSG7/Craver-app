@@ -1,22 +1,61 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, setCartToShow } from "../Slices/cartSlice";
+import { Checkout } from "../Api/Checkout";
+import { getAddress } from "../Api/getAddress";
+import { MdLocationOn } from 'react-icons/md'; 
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
+  const navigate=useNavigate()
   const { cartList, cartToShow } = useSelector((state) => state.cart);
   const { categories } = useSelector((state) => state.category);
+  const { selectedRestaurantId } = useSelector(state => state.restaurant);
+  const { address } = useSelector(state => state.users);
+  const {status}=useSelector(state=>state.cart);   
   const dispatch = useDispatch();
+  const [showAddressPopup, setShowAddressPopup] = useState(false);
+  const [newAddress, setNewAddress] = useState("");
 
   useEffect(() => {
+    dispatch(getAddress());
     dispatch(setCartToShow(categories));
   }, [cartList, dispatch]);
-
+  useEffect(()=>{
+    if(status==="success"){
+      navigate("/ordersuccess")
+    }
+  },[status])
   const handleRemoveFromCart = (id) => {
     dispatch(removeFromCart(id));
   };
 
   const handleCheckout = () => {
-    // Checkout logic here
+    if (address === "Not Provided") {
+      setShowAddressPopup(true); 
+      return;
+    }
+
+    const restaurantId = selectedRestaurantId;
+    const cartData = cartToShow.map((val) => {
+      const discountedPrice = val.price * ((100 - val.discount) / 100);
+      return { id: val._id, quantity: val.quantity, price: discountedPrice, image: val.image, name: val.name};
+    });
+    dispatch(Checkout({ restaurantId, cartData,address }));
+  };
+
+  const handleAddressSubmit = () => {
+    if(newAddress.length>5){
+      const restaurantId = selectedRestaurantId;
+      const cartData = cartToShow.map((val) => {
+        const discountedPrice = val.price * ((100 - val.discount) / 100);
+        return { id: val._id, quantity: val.quantity, price: discountedPrice, image: val.image, name: val.name};
+      });
+      console.log(cartData);
+      
+      dispatch(Checkout({ restaurantId, cartData,address:newAddress }));
+    }
+    setShowAddressPopup(false); 
   };
 
   const totalAmount = cartToShow.reduce(
@@ -88,6 +127,15 @@ function Cart() {
             >
               Proceed to Checkout
             </button>
+            {address === "Not Provided" && (
+              <button
+                className="mt-4 flex items-center text-blue-500"
+                onClick={() => setShowAddressPopup(true)}
+              >
+                <MdLocationOn className="mr-2" size={24} />
+                Set Address
+              </button>
+            )}
           </div>
         </div>
       ) : (
@@ -96,6 +144,35 @@ function Cart() {
           <p className="text-lg text-gray-400 mt-4">
             Start adding some products to your cart and enjoy shopping!
           </p>
+        </div>
+      )}
+      {showAddressPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg p-6 w-11/12 md:w-1/3">
+            <h2 className="text-2xl font-bold mb-4">We dont have your address to deliver enter you address...</h2>
+            <input
+              type="text"
+              value={newAddress}
+              required
+              onChange={(e) => setNewAddress(e.target.value)}
+              placeholder="Enter your address"
+              className="border p-2 w-full rounded-md mb-4"
+            />
+            <div className="flex justify-end">
+              <button
+                className="bg-blue-500 text-white py-2 px-4 rounded-md mr-2"
+                onClick={handleAddressSubmit}
+              >
+                Submit
+              </button>
+              <button
+                className="bg-gray-300 text-gray-800 py-2 px-4 rounded-md"
+                onClick={() => setShowAddressPopup(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

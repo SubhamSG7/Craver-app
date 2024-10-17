@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from 'react-toastify';
+import { getAddress } from "../Api/getAddress";
 
 export const signInUser = createAsyncThunk(
   "users/signIn",
@@ -59,6 +60,8 @@ const usersSlice = createSlice({
     loginError: null,
     role: null,
     loggedUser: null,
+    address:null,
+    status:null
   },
   reducers: {
     updateUserField: (state, action) => {
@@ -114,7 +117,18 @@ const usersSlice = createSlice({
         state.loginStatus = "failed";
         state.loginError = action.payload;
         toast.error(`Login failed: ${action.payload}`);
-      });
+      })
+      .addCase(getAddress.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getAddress.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.address = action.payload.address;
+      })
+      .addCase(getAddress.rejected, (state, action) => {
+        state.status = "failed";
+      })
+      
   },
 });
 

@@ -5,18 +5,22 @@ import { GetCategory } from "../Api/GetCategory";
 import PageLoaders from "../Loaders/PageLoaders";
 import CategoryWrapper from "../Components/CategoryWrapper";
 import Filter from "../Components/Filter";
+import { setSelectedRestaurantId } from "../Slices/restaurantSlice";
 
 function Restaurant() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const navigate = useNavigate("/cart");
+  const navigate = useNavigate();
   const { cartList } = useSelector((state) => state.cart);
   const { apiStatus, categories, filteredData } = useSelector(
     (state) => state.category
   );
+  const {selectedRestaurantId}=useSelector(state=>state.restaurant)
   const id = location.pathname.split("/")[2];
-
+  console.log();
+  
   useEffect(() => {
+    dispatch(setSelectedRestaurantId(id))
     dispatch(GetCategory(id));
   }, [dispatch, id]);
 

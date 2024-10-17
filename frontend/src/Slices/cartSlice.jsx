@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Checkout } from "../Api/Checkout";
 
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
     cartList: {},
     cartToShow: [],
+    status:null
   },
   reducers: {
     setCart: (state, action) => {
@@ -43,6 +45,20 @@ const cartSlice = createSlice({
       }
     },
   },
+  extraReducers:(builder)=>{
+    builder
+    .addCase(Checkout.pending,(state)=>{
+
+      state.status="loading"
+    })
+    .addCase(Checkout.fulfilled,(state,action)=>{
+      state.status="success"
+    })
+    .addCase(Checkout.rejected,(state,action)=>{
+      
+      state.status=action.payload
+    })
+  }
 });
 
 export const { setCart, setCartToShow, removeFromCart } = cartSlice.actions;

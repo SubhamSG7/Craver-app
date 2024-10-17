@@ -7,11 +7,15 @@ import { FaLocationCrosshairs } from "react-icons/fa6";
 
 function GetLocation() {
   const dispatch = useDispatch();
-  const { userLongitude, userLatitude } = useSelector(
-    (state) => state.restaurant
-  );
+  const { userLongitude, userLatitude } = useSelector((state) => state.restaurant);
   const data = useLoaderData();
   const [city, setCity] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Default latitude and longitude
+  const defaultLatitude = 26.9124;
+  const defaultLongitude = 75.7873;
 
   useEffect(() => {
     handleGetLocation();
@@ -30,13 +34,19 @@ function GetLocation() {
         (position) => {
           const { latitude, longitude } = position.coords;
           dispatch(setLocation({ latitude, longitude }));
+          console.log(latitude, longitude);
         },
         (err) => {
           console.error(err.message);
+          dispatch(setLocation({ latitude: defaultLatitude, longitude: defaultLongitude }));
+          setError("Unable to retrieve location. Using default location.");
+          setLoading(false);
         }
       );
     } else {
-      console.error("Geolocation is not supported by this browser.");
+      setError("Geolocation is not supported by this browser. Using default location.");
+      dispatch(setLocation({ latitude: defaultLatitude, longitude: defaultLongitude }));
+      setLoading(false);
     }
   };
 
@@ -49,28 +59,32 @@ function GetLocation() {
       const results = response.data.results;
 
       if (results.length > 0) {
-        const city =
-          results[0].components.city ||
-          results[0].components.town ||
-          results[0].components.village;
+        const city = results[0].components.city || results[0].components.town || results[0].components.village;
         setCity(city);
       } else {
-        console.error("No results found for reverse geocoding.");
+        setError("No results found for reverse geocoding.");
       }
     } catch (error) {
       console.error("Error fetching city name:", error);
+      setError("Failed to fetch city name. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="flex flex-col items-center justify-center">
-      {city ? (
+      {loading ? (
+        <p className="text-xl animate-pulse">Fetching your city name...</p>
+      ) : error ? (
+        <p className="text-red-500">{error}</p>
+      ) : city ? (
         <div className="flex items-center text-xl font-bold mb-2">
           <FaLocationCrosshairs className="mr-2" />
           <span>{city}!</span>
         </div>
       ) : (
-        <p className="text-xl animate-pulse">Fetching your city name...</p>
+        <p className="text-xl">City not found.</p>
       )}
     </div>
   );

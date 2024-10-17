@@ -20,6 +20,7 @@ import Editcuisine from "../Components/Editcuisine";
 import TrackOrders from "../Components/TrackOrders";
 import AddCategory from "../Components/AddCategory";
 import Restaurant from "../Pages/Restaurant";
+import OrderSuccess from "../Components/OrderSuccess";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -34,7 +35,9 @@ const routes = createBrowserRouter([
       { path: "stafflogin", element: <LoginStaff /> },
       { path: "staffHome", element: <StaffHome /> },
       { path: "orders", element: <Orders /> },
-      { path: "cart", element: <Cart /> },
+      { path: "cart", element: <PrivateRoute>
+        <Cart /> 
+      </PrivateRoute>},
       {
         path: "restaurant/:id",
         element: (
@@ -99,6 +102,12 @@ const routes = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path:"ordersuccess",
+        element:<PrivateRoute>
+          <OrderSuccess/>
+        </PrivateRoute>
+      }
     ],
   },
   { path: "*", element: <h1>Sorry, Page Not Found</h1> },

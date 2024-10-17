@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 const router = express.Router();
+const getPlacedOrders=require("../controllers/getPlacedOrders");
 
 router.use(express.json());
 
@@ -114,5 +115,7 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 });
+
+router.get("/placedorders",getPlacedOrders)
 
 module.exports = router;

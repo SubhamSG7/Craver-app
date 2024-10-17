@@ -32,6 +32,16 @@ const userSchema = mongoose.Schema({
     require: true,
     default: "user",
   },
+  placedorders:{
+    type:[String],
+    default:[],
+    require:true
+  },
+  address:{
+    type:String,
+    default:"Not Provided",
+    require:true
+  }
 });
 
 userSchema.pre("save", async function (next) {

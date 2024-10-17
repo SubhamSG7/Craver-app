@@ -11,6 +11,7 @@ const restaurantSlice = createSlice({
     userLongitude: null,
     userLatitude: null,
     allRestaurant: [],
+    selectedRestaurantId:null,
   },
   reducers: {
     editRestaurantData: (state, action) => {
@@ -24,6 +25,9 @@ const restaurantSlice = createSlice({
       const { longitude, latitude } = action.payload;
       state.userLongitude = longitude;
       state.userLatitude = latitude;
+    },
+    setSelectedRestaurantId:(state,action)=>{
+      state.selectedRestaurantId=action.payload;
     },
     setAllRestaurant: (state, action) => {
       let restaurantList = action.payload;
@@ -58,6 +62,6 @@ const restaurantSlice = createSlice({
       });
   },
 });
-export const { editRestaurantData, setLocation, setAllRestaurant } =
+export const { editRestaurantData, setLocation, setAllRestaurant,setSelectedRestaurantId } =
   restaurantSlice.actions;
 export default restaurantSlice.reducer;

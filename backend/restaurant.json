@@ -31,7 +31,8 @@
       "670e7dc94a31827aef4d125f",
       "670e7dc94a31827aef4d1260",
       "670e7dc94a31827aef4d1261"
-    ]
+    ],
+    "placedorders":[]
   },
   {
     "name": "Desert Spice",
@@ -65,7 +66,8 @@
       "670e7dc94a31827aef4d125f",
       "670e7dc94a31827aef4d1260",
       "670e7dc94a31827aef4d1261"
-    ]
+    ],
+    "placedorders":[]
   },
   {
     "name": "Udaipur Palace Dining",
@@ -99,7 +101,8 @@
       "670e7dc94a31827aef4d125f",
       "670e7dc94a31827aef4d1260",
       "670e7dc94a31827aef4d1261"
-    ]
+    ],
+    "placedorders":[]
   },
   {
     "name": "Spice Route",
@@ -133,7 +136,8 @@
       "670e7dc94a31827aef4d125f",
       "670e7dc94a31827aef4d1260",
       "670e7dc94a31827aef4d1261"
-    ]
+    ],
+    "placedorders":[]
   },
   {
     "name": "Bikanervala",
@@ -167,7 +171,8 @@
       "670e7dc94a31827aef4d125f",
       "670e7dc94a31827aef4d1260",
       "670e7dc94a31827aef4d1261"
-    ]
+    ],
+    "placedorders":[]
   },
   {
     "name": "Chokhi Dhani",
@@ -202,6 +207,7 @@
       "670e7dc94a31827aef4d1260",
       "670e7dc94a31827aef4d1261"
     ]
+    , "placedorders":[]
   },
   {
     "name": "Patanjali Restaurant",
@@ -235,7 +241,8 @@
       "670e7dc94a31827aef4d125f",
       "670e7dc94a31827aef4d1260",
       "670e7dc94a31827aef4d1261"
-    ]
+    ],
+    "placedorders":[]
   },
   {
     "name": "Natraj Restaurant",
@@ -269,7 +276,8 @@
       "670e7dc94a31827aef4d125f",
       "670e7dc94a31827aef4d1260",
       "670e7dc94a31827aef4d1261"
-    ]
+    ],
+    "placedorders":[]
   },
   {
     "name": "Rajasthani Rasoi",
@@ -303,7 +311,8 @@
       "670e7dc94a31827aef4d125f",
       "670e7dc94a31827aef4d1260",
       "670e7dc94a31827aef4d1261"
-    ]
+    ],
+    "placedorders":[]
   },
   {
     "name": "Kesar Heritage Restaurant",
@@ -337,6 +346,7 @@
       "670e7dc94a31827aef4d125f",
       "670e7dc94a31827aef4d1260",
       "670e7dc94a31827aef4d1261"
-    ]
+    ],
+    "placedorders":[]
   }
 ]
