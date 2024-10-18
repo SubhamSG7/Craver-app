@@ -33,6 +33,9 @@ const cartSlice = createSlice({
         state.cartToShow = data;
       }
     },
+    emptyCartList:(state,action)=>{
+      state.cartList={}
+    },
     removeFromCart: (state, action) => {
       const itemId = action.payload;
       if (state.cartList[itemId]) {
@@ -44,6 +47,7 @@ const cartSlice = createSlice({
         console.log(`Item with id ${itemId} removed from the cart.`);
       }
     },
+    
   },
   extraReducers:(builder)=>{
     builder
@@ -61,5 +65,5 @@ const cartSlice = createSlice({
   }
 });
 
-export const { setCart, setCartToShow, removeFromCart } = cartSlice.actions;
+export const { setCart, setCartToShow, removeFromCart,emptyCartList } = cartSlice.actions;
 export default cartSlice.reducer;

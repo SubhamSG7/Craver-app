@@ -22,7 +22,7 @@ function OrderSuccess() {
             Check Orders
           </Link>
           <Link
-            to="/menu"
+            to="/"
             className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-green-600 transition duration-300 transform hover:translate-y-1"
           >
             Order Something More

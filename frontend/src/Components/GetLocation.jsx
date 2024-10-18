@@ -13,7 +13,6 @@ function GetLocation() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Default latitude and longitude
   const defaultLatitude = 26.9124;
   const defaultLongitude = 75.7873;
 

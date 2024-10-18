@@ -8,7 +8,9 @@ const Category=require("../models/category");
 const getGeoloaction = require("../thirdPartyApi/getGeoloaction");
 const getCategories=require("../controllers/getCategories");
 const placeOrder=require("../controllers/placeOrder");
-const getAddress=require("../controllers/getAddress")
+const getAddress=require("../controllers/getAddress");
+const cancelOrder = require("../controllers/cancelOrder");
+const updateOrderStatus = require("../controllers/updateOrderStatus");
 
 router.post("/", upload.single("image"), async (req, res) => {
   try {
@@ -56,4 +58,6 @@ router.post("/", upload.single("image"), async (req, res) => {
 router.post("/placeorder",placeOrder)
 router.get("/getcategories",getCategories)
 router.get("/getaddress",getAddress);
+router.post("/cancelorder",cancelOrder);
+router.post("/updateorderstatus",updateOrderStatus);
 module.exports = router;

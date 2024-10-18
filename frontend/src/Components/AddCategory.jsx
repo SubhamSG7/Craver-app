@@ -23,10 +23,10 @@ function AddCategory() {
     formData.append("discount", dish.discount);
 
     if (selectedImage) {
-      formData.append("image", selectedImage); // Add image file to FormData
+      formData.append("image", selectedImage); 
     }
 
-    dispatch(SendCategory(formData)); // Pass FormData instead of raw dish object
+    dispatch(SendCategory(formData)); 
   }
 
   async function getStaffRestaurant() {

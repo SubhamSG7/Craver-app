@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
   checkValidation,
+  clearUserField,
   loginUser,
   updateUserField,
 } from "../Slices/usersSlice";
@@ -28,6 +29,7 @@ function UserLogin() {
   }
   useEffect(() => {
     if (loginStatus === "succeeded") {
+      dispatch(clearUserField())
       navigate("/logged");
     }
   }, [navigate, loginStatus]);

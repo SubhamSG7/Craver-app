@@ -76,6 +76,11 @@ const usersSlice = createSlice({
     setLoggedUser: (state, action) => {
       state.loggedUser = action.payload;
     },
+    clearUserField:(state,action)=>{
+      state.userData= { name: "", email: "", phone: "", password: "" }
+      state.loginStatus=null;
+    },
+
     checkValidation: (state, action) => {
       const field = action.payload;
       const value = state.userData[field];
@@ -132,6 +137,6 @@ const usersSlice = createSlice({
   },
 });
 
-export const { updateUserField, checkValidation, setRole, setLoggedUser } = usersSlice.actions;
+export const { updateUserField, checkValidation, setRole, setLoggedUser ,clearUserField} = usersSlice.actions;
 
 export default usersSlice.reducer;

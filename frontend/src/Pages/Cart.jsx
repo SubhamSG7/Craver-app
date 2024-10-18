@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, setCartToShow } from "../Slices/cartSlice";
+import { emptyCartList, removeFromCart, setCartToShow } from "../Slices/cartSlice";
 import { Checkout } from "../Api/Checkout";
 import { getAddress } from "../Api/getAddress";
 import { MdLocationOn } from 'react-icons/md'; 
@@ -23,6 +23,7 @@ function Cart() {
   }, [cartList, dispatch]);
   useEffect(()=>{
     if(status==="success"){
+      dispatch(emptyCartList())
       navigate("/ordersuccess")
     }
   },[status])

@@ -12,7 +12,7 @@ const placedOrderSchema = new mongoose.Schema({
     ref: 'Restaurant' 
   },
   product:[{
-    id: { type: String, required: true }, // Changed from productId to id for consistency
+    id: { type: String, required: true }, 
     image: { type: String, required: true },
     name: { type: String, required: true },
     price: { type: Number, required: true },

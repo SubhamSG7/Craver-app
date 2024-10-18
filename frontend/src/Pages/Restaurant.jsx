@@ -15,12 +15,10 @@ function Restaurant() {
   const { apiStatus, categories, filteredData } = useSelector(
     (state) => state.category
   );
-  const {selectedRestaurantId}=useSelector(state=>state.restaurant)
   const id = location.pathname.split("/")[2];
-  console.log();
   
   useEffect(() => {
-    dispatch(setSelectedRestaurantId(id))
+    dispatch(setSelectedRestaurantId(id));
     dispatch(GetCategory(id));
   }, [dispatch, id]);
 
@@ -32,14 +30,14 @@ function Restaurant() {
     filteredData && filteredData.length > 0 ? filteredData : categories;
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container w-screen py-6 px-4">
       <h1 className="text-3xl font-bold text-center mb-8 text-gray-900">
         Restaurant Categories
       </h1>
 
       <Filter />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="flex flex-wrap justify-between gap-4">
         {filteredData === "Not Found" ? (
           <div className="w-full text-center text-lg text-gray-500">
             Sorry, no items found.
@@ -49,7 +47,7 @@ function Restaurant() {
           dataToRender.map((val) => (
             <div
               key={val?._id}
-              className="transform hover:scale-105 transition-transform duration-300"
+              className="w-[33%] flex-shrink-0 box-border min-h-[250px] transform hover:scale-105 transition-transform duration-300"
             >
               <CategoryWrapper key={val._id} data={val} />
             </div>

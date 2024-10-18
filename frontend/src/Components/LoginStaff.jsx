@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import {
   checkValidation,
+  clearUserField,
   loginUser,
   setRole,
   updateUserField,
@@ -14,7 +15,6 @@ function LoginStaff() {
   const navigate = useNavigate();
   const { validationErr, userData, loginStatus, loginError, role } =
     useSelector((state) => state.users);
-    console.log(loginError,loginStatus);
     
   function handleLogIn(e) {
     e.preventDefault();
@@ -32,7 +32,7 @@ function LoginStaff() {
   }
   useEffect(() => {
     if (loginStatus === "succeeded") {
-      
+      dispatch(clearUserField())
       navigate(`/logged`);
     }
   }, [loginStatus, navigate]);

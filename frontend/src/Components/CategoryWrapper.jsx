@@ -14,15 +14,13 @@ function CategoryWrapper({ data }) {
   }
 
   return (
-    <div className="max-w-sm mx-auto bg-gradient-to-tr from-yellow-400 via-orange-400 to-pink-500 shadow-lg rounded-3xl overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl cursor-pointer">
-      {/* Image Section */}
+    <div className=" bg-gradient-to-tr from-yellow-400 via-orange-400 to-pink-500 shadow-lg rounded-3xl overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl cursor-pointer">
+
       <img
         src={image}
         alt={name}
         className="w-full h-48 object-cover rounded-t-3xl transition-transform duration-500 transform hover:scale-110"
       />
-
-      {/* Content Section */}
       <div className="p-6 bg-white rounded-b-3xl">
         <h3 className="text-2xl font-bold text-gray-900 mb-2 text-center">
           {name}

@@ -1,45 +1,56 @@
 const jwtHandler = require("../jwthandler/jwthandler");
 const Placedorders = require("../models/placedOrders");
+const Restaurant = require("../models/restaurant");
+const Staff = require("../models/staff");
 const User = require("../models/user");
 
 async function getPlacedOrders(req, res) {
     try {
         const token = req.cookies.token;
-        const { id } = await jwtHandler(token);
-        const userData = await User.findById(id);
+        const { id, scope } = await jwtHandler(token);
         
-        if (!userData) {
-            return res.status(404).json({ message: "User not found" });
+        let userData;
+
+        // Scope handling: fetch user or restaurant based on the scope
+        if (scope === "user") {
+            userData = await User.findById(id);
+            if (!userData) {
+                return res.status(404).json({ message: "User not found" });
+            }
+        } else if (scope === "staff") {
+            const staffData = await Staff.findById(id);
+            if (!staffData) {
+                return res.status(404).json({ message: "Staff not found" });
+            }
+            userData = await Restaurant.findOne({ name: staffData.restaurant });
+            if (!userData) {
+                return res.status(404).json({ message: "Restaurant not found" });
+            }
+        } else {
+            return res.status(400).json({ message: "Invalid user scope" });
         }
-
         const orderList = userData.placedorders;
-        const orderDetails = await Promise.all(
-            orderList.map(async (orderId) => {
-                const orderDetail = await Placedorders.findById(orderId);
-                if (orderDetail) {
-                    return {
-                        _id: orderDetail._id,
-                        userId: orderDetail.userId,
-                        restaurantId: orderDetail.restaurantId,
-                        orderStatus: orderDetail.orderStatus,
-                        address: orderDetail.address,
-                        coordinates: orderDetail.coordinates,
-                        createdAt: orderDetail.createdAt,
-                        updatedAt: orderDetail.updatedAt,
-                        products: orderDetail.product.map((item) => ({
-                            id: item.id,
-                            name: item.name,
-                            price: item.price,
-                            quantity: item.quantity,
-                            image: item.image,
-                        })),
-                    };
-                }
-            })
-        );
+        const orderDetails = await Placedorders.find({ _id: { $in: orderList } });
+        const formattedOrderDetails = orderDetails.map(order => ({
+            _id: order._id,
+            userId: order.userId,
+            restaurantId: order.restaurantId,
+            orderStatus: order.orderStatus,
+            address: order.address,
+            coordinates: order.coordinates,
+            createdAt: order.createdAt,
+            updatedAt: order.updatedAt,
+            products: order.product.map(item => ({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity,
+                image: item.image
+            }))
+        }));
 
-        const filteredOrderDetails = orderDetails.filter(Boolean);
-        return res.status(200).json(filteredOrderDetails);
+        return res.status(200).json(formattedOrderDetails);
+
     } catch (error) {
         console.error("Error fetching placed orders:", error);
         return res.status(500).json({ message: "Server error" });

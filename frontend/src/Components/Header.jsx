@@ -1,5 +1,4 @@
 import { Link, useLocation } from "react-router-dom";
-import logo from "../assets/logo.png";
 import { useSelector } from "react-redux";
 
 function Header() {
@@ -11,7 +10,7 @@ function Header() {
   const roleBased = {
     admin: ["home", "addrestaurant", "assignrole", "profile"],
     user: ["home", "orders", "cart", "profile"],
-    staff: ["home", "addcategory", "editcuisine", "trackorders", "profile"],
+    staff: ["home", "addcategory", "trackorders", "profile"],
   };
 
   const getButtonStyle = (locate) => {
@@ -21,21 +20,23 @@ function Header() {
   };
 
   return (
-    <header className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-b-lg text-white p-4 shadow-lg h-[15vh]">
-      <div className="container mx-auto flex justify-between items-center h-full">
-        <img
-          className="w-20 h-14 rounded-md transition-transform transform hover:scale-105"
-          src={logo}
-          alt="Logo"
-        />
+    <header className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-b-lg text-white p-4 shadow-lg">
+      <div className="container mx-auto flex justify-between items-center h-full flex-wrap">
+        <div className="flex items-center">
+          <img
+            className="w-20 h-14 rounded-md shadow-lg transition-transform transform hover:scale-105 mr-4"  // Added shadow-lg class here
+            src="https://www.cravercorp.com/images/craver_logo_new.png"
+            alt="Logo"
+          />
+        </div>
         <nav className="ml-auto">
-          <ul className="flex space-x-6">
+          <ul className="flex flex-wrap space-x-4">
             {role ? (
               roleBased[role]?.map((val) => (
                 <li key={val}>
                   <Link to={`/${val === "home" ? "" : val}`}>
                     <button
-                      className={`py-2 px-5 rounded-lg text-lg font-semibold transition-colors duration-300 flex items-center justify-center ${getButtonStyle(
+                      className={`py-2 px-4 rounded-lg text-lg font-semibold transition-colors duration-300 flex items-center justify-center ${getButtonStyle(
                         `/${val === "home" ? "" : val}`
                       )}`}
                     >
@@ -51,7 +52,7 @@ function Header() {
                 <li>
                   <Link to="/">
                     <button
-                      className={`py-2 px-5 rounded-lg text-lg font-semibold transition-colors duration-300 ${getButtonStyle(
+                      className={`py-2 px-4 rounded-lg text-lg font-semibold transition-colors duration-300 ${getButtonStyle(
                         "/"
                       )}`}
                     >
@@ -62,7 +63,7 @@ function Header() {
                 <li>
                   <Link to="/orders">
                     <button
-                      className={`py-2 px-5 rounded-lg text-lg font-semibold transition-colors duration-300 ${getButtonStyle(
+                      className={`py-2 px-4 rounded-lg text-lg font-semibold transition-colors duration-300 ${getButtonStyle(
                         "/orders"
                       )}`}
                     >
@@ -73,7 +74,7 @@ function Header() {
                 <li>
                   <Link to="/cart">
                     <button
-                      className={`py-2 px-5 rounded-lg text-lg font-semibold transition-colors duration-300 ${getButtonStyle(
+                      className={`py-2 px-4 rounded-lg text-lg font-semibold transition-colors duration-300 ${getButtonStyle(
                         "/cart"
                       )}`}
                     >
@@ -84,7 +85,7 @@ function Header() {
                 <li>
                   <Link to="/login">
                     <button
-                      className={`py-2 px-5 rounded-lg text-lg font-semibold transition-colors duration-300 ${getButtonStyle(
+                      className={`py-2 px-4 rounded-lg text-lg font-semibold transition-colors duration-300 ${getButtonStyle(
                         "/login"
                       )}`}
                     >
