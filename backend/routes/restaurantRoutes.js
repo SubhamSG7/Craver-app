@@ -40,6 +40,9 @@ router.post("/", upload.single("image"), async (req, res) => {
       },
     });
     await newRestaurant.save();
+    res.status(200).json({
+      message:"SuccessFully Created Restaurant"
+    })
   } catch (error) {
     fs.unlink(image.path, (err) => {
       if (err) {

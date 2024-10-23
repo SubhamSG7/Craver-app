@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const locationRoutes = require("./routes/locationRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const userRoute = require("./routes/userRoutes");
 const adminRoutes = require("./routes/adminRoutes");
@@ -26,8 +25,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 connectDB();
-
-app.use("/api/locations", locationRoutes);
 app.use("/api/restaurant", restaurantRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/users", userRoute);
@@ -36,6 +33,9 @@ app.use("/api/staff", staffRoutes);
 app.use("/api/scope", adminScope);
 app.use("/api/get", restaurantApi);
 app.use("/api/logout", logoutRoutes);
-app.get("/", (req, res) => res.send("Hello World!"));
+app.get("/", (req, res) => res.send("Hello Server!"));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+
+module.exports=app;

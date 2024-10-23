@@ -11,7 +11,6 @@ async function getPlacedOrders(req, res) {
         
         let userData;
 
-        // Scope handling: fetch user or restaurant based on the scope
         if (scope === "user") {
             userData = await User.findById(id);
             if (!userData) {

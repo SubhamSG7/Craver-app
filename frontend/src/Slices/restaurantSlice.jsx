@@ -12,6 +12,7 @@ const restaurantSlice = createSlice({
     userLatitude: null,
     allRestaurant: [],
     selectedRestaurantId:null,
+    restaurantAdded:false,
   },
   reducers: {
     editRestaurantData: (state, action) => {
@@ -25,6 +26,9 @@ const restaurantSlice = createSlice({
       const { longitude, latitude } = action.payload;
       state.userLongitude = longitude;
       state.userLatitude = latitude;
+    },
+    setrestaurantAdded:(state,action)=>{
+      state.restaurantAdded=action.payload
     },
     setSelectedRestaurantId:(state,action)=>{
       state.selectedRestaurantId=action.payload;
@@ -55,6 +59,8 @@ const restaurantSlice = createSlice({
       .addCase(sendRestaurantData.fulfilled, (state, action) => {
         state.loading = false;
         state.restaurantData = { name: "", address: "", image: "", about: "" };
+        
+        state.restaurantAdded=true;
       })
       .addCase(sendRestaurantData.rejected, (state, action) => {
         state.loading = false;
@@ -62,6 +68,6 @@ const restaurantSlice = createSlice({
       });
   },
 });
-export const { editRestaurantData, setLocation, setAllRestaurant,setSelectedRestaurantId } =
+export const { editRestaurantData, setLocation, setAllRestaurant,setSelectedRestaurantId,setrestaurantAdded } =
   restaurantSlice.actions;
 export default restaurantSlice.reducer;

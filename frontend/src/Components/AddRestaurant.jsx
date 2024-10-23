@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editRestaurantData } from "../Slices/restaurantSlice";
+import { editRestaurantData, setrestaurantAdded } from "../Slices/restaurantSlice";
 import { sendRestaurantData } from "../Api/restaurantApi";
+import { useNavigate } from "react-router-dom";
 
 function AddRestaurant() {
-  const { restaurantData, loading, error } = useSelector(
+  const { restaurantData, loading, error ,restaurantAdded} = useSelector(
     (state) => state.restaurant
-  );
-  console.log(loading, error);
+  )
+  const navigate=useNavigate();
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +20,12 @@ function AddRestaurant() {
     formData.append("about", restaurantData.about);
     dispatch(sendRestaurantData(formData));
   };
+  useEffect(()=>{
+    if(restaurantAdded===true){
+      dispatch(setrestaurantAdded(false));
+      navigate("/")
+    }
+  },[restaurantAdded])
 
   return (
     <>

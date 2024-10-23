@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 
   },
   confirmed: {
     type: Boolean,
@@ -20,7 +20,6 @@ const userSchema = mongoose.Schema({
   phone: {
     type: String,
     required: true,
-    match: /^\+91[1-9]{1}[0-9]{9}$|^[1-9]{1}[0-9]{9}$/,
   },
   password: {
     type: String,
@@ -29,25 +28,26 @@ const userSchema = mongoose.Schema({
   },
   scope: {
     type: String,
-    require: true,
+    required: true,
     default: "user",
   },
-  placedorders:{
-    type:[String],
-    default:[],
-    require:true
+  placedorders: {
+    type: [String],
+    default: [],
+    required: true,
   },
-  address:{
-    type:String,
-    default:"Not Provided",
-    require:true
-  }
+  address: {
+    type: String,
+    default: "Not Provided",
+    required: true,
+  },
 });
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
   }
+  this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 

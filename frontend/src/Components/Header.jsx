@@ -20,7 +20,7 @@ function Header() {
   };
 
   return (
-    <header className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-b-lg text-white p-4 shadow-lg">
+    <header className="bg-gradient-to-r from-purple-500 to-blue-500 h-[15vh] text-white p-4 shadow-lg w-[100vw]">
       <div className="container mx-auto flex justify-between items-center h-full flex-wrap">
         <div className="flex items-center">
           <img

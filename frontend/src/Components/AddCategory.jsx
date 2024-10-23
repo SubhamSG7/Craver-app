@@ -1,17 +1,21 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PageLoaders from "../Loaders/PageLoaders";
-import { setDish, setRestaurant } from "../Slices/categorySlice";
+import { setDish, resetDish, setRestaurant } from "../Slices/categorySlice";
 import { SendCategory } from "../Api/AddCategory";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 function AddCategory() {
-  const { dish, restaurant, status } = useSelector((state) => state.category);
+  const { dish, restaurant, status, apiStatus } = useSelector((state) => state.category);
   const [selectedImage, setSelectedImage] = useState(null);
-  const dispatch = useDispatch();
-  let url = import.meta.env.VITE_BACKEND_API;
+  const [imagePreview, setImagePreview] = useState(null);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  function handleDishSubmission(e) {
+  const dispatch = useDispatch();
+  const url = import.meta.env.VITE_BACKEND_API;
+
+  const handleDishSubmission = (e) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -21,24 +25,36 @@ function AddCategory() {
     formData.append("dishdetail", dish.dishdetail);
     formData.append("price", dish.price);
     formData.append("discount", dish.discount);
+    formData.append("restaurant_id", restaurant._id);
 
     if (selectedImage) {
-      formData.append("image", selectedImage); 
+      formData.append("image", selectedImage);
     }
 
-    dispatch(SendCategory(formData)); 
-  }
+    dispatch(SendCategory(formData));
+    setFormSubmitted(true);
+    dispatch(resetDish());
+    setSelectedImage(null);
+    setImagePreview(null);
+    e.target.reset(); 
+  };
 
-  async function getStaffRestaurant() {
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
+
+  const getStaffRestaurant = async () => {
     try {
       const resp = await axios.get(`${url}/api/staff/getrestaurant`, {
         withCredentials: true,
       });
       dispatch(setRestaurant(resp?.data));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  }
+  };
 
   useEffect(() => {
     getStaffRestaurant();
@@ -47,7 +63,7 @@ function AddCategory() {
   if (status === "loading") return <PageLoaders />;
 
   return (
-    <div className="relative bg-gray-200">
+    <div className="relative bg-gray-200 min-h-screen">
       <img
         src={restaurant?.imageUrl}
         alt="Restaurant"
@@ -58,14 +74,14 @@ function AddCategory() {
         <p className="text-2xl">{restaurant?.address}</p>
         <p className="text-lg text-center">{restaurant?.about}</p>
       </div>
+
       <form
         className="mt-4 p-6 bg-white rounded-lg shadow-lg z-20 relative max-w-md mx-auto"
         onSubmit={handleDishSubmission}
         encType="multipart/form-data"
       >
-        <h2 className="text-xl font-semibold text-[#333333] mb-4">
-          Add a New Dish
-        </h2>
+        <h2 className="text-xl font-semibold text-[#333333] mb-4">Add a New Dish</h2>
+
         <div className="mb-4">
           <label className="block text-[#555555] mb-1">Dish Name</label>
           <input
@@ -77,8 +93,10 @@ function AddCategory() {
             onChange={(e) =>
               dispatch(setDish({ name: e.target.name, value: e.target.value }))
             }
+            value={dish.dishname || ""}
           />
         </div>
+
         <div className="mb-4">
           <label className="block text-[#555555] mb-1">Category</label>
           <input
@@ -86,25 +104,29 @@ function AddCategory() {
             name="category"
             className="w-full p-3 border border-[#dddddd] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
             placeholder="Enter category"
+            required
             onChange={(e) =>
               dispatch(setDish({ name: e.target.name, value: e.target.value }))
             }
-            required
+            value={dish.category || ""}
           />
         </div>
+
         <div className="mb-4">
           <label className="block text-[#555555] mb-1">Cuisine</label>
           <input
             type="text"
+            name="cuisine"
             className="w-full p-3 border border-[#dddddd] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
             placeholder="Enter cuisine"
-            name="cuisine"
+            required
             onChange={(e) =>
               dispatch(setDish({ name: e.target.name, value: e.target.value }))
             }
-            required
+            value={dish.cuisine || ""}
           />
         </div>
+
         <div className="mb-4">
           <label className="block text-[#555555] mb-1">Dish Details</label>
           <textarea
@@ -114,42 +136,52 @@ function AddCategory() {
             onChange={(e) =>
               dispatch(setDish({ name: e.target.name, value: e.target.value }))
             }
+            value={dish.dishdetail || ""}
             rows="4"
           ></textarea>
         </div>
+
         <div className="mb-4">
           <label className="block text-[#555555] mb-1">Price</label>
           <input
             type="number"
+            name="price"
             className="w-full p-3 border border-[#dddddd] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
             placeholder="Enter price"
-            name="price"
             onChange={(e) =>
               dispatch(setDish({ name: e.target.name, value: e.target.value }))
             }
+            value={dish.price || ""}
           />
         </div>
+
         <div className="mb-4">
           <label className="block text-[#555555] mb-1">Discount</label>
           <input
             type="number"
+            name="discount"
             className="w-full p-3 border border-[#dddddd] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
             placeholder="Enter discount"
-            name="discount"
             onChange={(e) =>
               dispatch(setDish({ name: e.target.name, value: e.target.value }))
             }
+            value={dish.discount || ""}
           />
         </div>
+
         <div className="mb-4">
           <label className="block text-[#555555] mb-1">Dish Image</label>
           <input
             type="file"
             className="w-full p-3 border border-[#dddddd] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
-            onChange={(e) => setSelectedImage(e.target.files[0])}
+            onChange={handleImageChange}
             accept="image/*"
           />
+          {imagePreview && (
+            <img src={imagePreview} alt="Preview" className="mt-4 w-full rounded-lg" />
+          )}
         </div>
+
         <button
           type="submit"
           className="w-full p-3 bg-[#007BFF] text-white rounded-lg hover:bg-[#0056b3] transition duration-200"
@@ -157,6 +189,25 @@ function AddCategory() {
           Add Dish
         </button>
       </form>
+
+      {formSubmitted && apiStatus === "success" && (
+        <div className="mt-6 max-w-md mx-auto bg-green-200 text-green-700 p-4 rounded-lg">
+          <p>Category Added Successfully!</p>
+          <div className="mt-4 flex justify-between">
+            <button
+              onClick={() => setFormSubmitted(false)}
+              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
+            >
+              Add More
+            </button>
+            <Link to="/"><button
+              className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition"
+            >
+              Go Home
+            </button></Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

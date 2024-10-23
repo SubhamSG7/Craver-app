@@ -29,7 +29,9 @@ const categorySlice = createSlice({
             const uniqueCuisine = [...new Set(state.categories.map(val => val.cuisine))]
             state.categoryList = uniqueCategories
             state.cuisineList = uniqueCuisine
-        },
+        }, resetDish: (state) => {
+            state.dish = {};
+          },
         setFilterMenu: (state, action) => {
             const { name, value } = action.payload;
             state.filteroptions[name] = value;
@@ -73,5 +75,5 @@ const categorySlice = createSlice({
     },
 });
 
-export const { setRestaurant, setDish, setList, setFilterMenu, filterMenu ,clearFilterMenu} = categorySlice.actions;
+export const { setRestaurant, setDish, setList, setFilterMenu, filterMenu ,clearFilterMenu ,resetDish} = categorySlice.actions;
 export default categorySlice.reducer;

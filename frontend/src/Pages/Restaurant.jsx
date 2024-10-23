@@ -16,7 +16,7 @@ function Restaurant() {
     (state) => state.category
   );
   const id = location.pathname.split("/")[2];
-  
+
   useEffect(() => {
     dispatch(setSelectedRestaurantId(id));
     dispatch(GetCategory(id));
@@ -30,7 +30,7 @@ function Restaurant() {
     filteredData && filteredData.length > 0 ? filteredData : categories;
 
   return (
-    <div className="container w-screen py-6 px-4">
+    <div className="w-[100vw] py-6 px-4">
       <h1 className="text-3xl font-bold text-center mb-8 text-gray-900">
         Restaurant Categories
       </h1>
@@ -47,7 +47,7 @@ function Restaurant() {
           dataToRender.map((val) => (
             <div
               key={val?._id}
-              className="w-[33%] flex-shrink-0 box-border min-h-[250px] transform hover:scale-105 transition-transform duration-300"
+              className=" w-[30%] flex flex-wrap gap-2 justify-evenly box-border min-h-[250px] transform hover:scale-105 transition-transform duration-300"
             >
               <CategoryWrapper key={val._id} data={val} />
             </div>
@@ -56,12 +56,12 @@ function Restaurant() {
       </div>
 
       {Object.keys(cartList).length > 0 && (
-        <div className="fixed bottom-4 right-4 bg-gradient-to-r from-green-400 via-yellow-400 to-blue-500 text-white rounded-xl shadow-lg p-4 flex flex-col items-center transition-transform transform hover:scale-105 hover:shadow-2xl">
+        <div className="fixed bottom-4 right-4 bg-indigo-600 text-white rounded-xl shadow-lg p-4 flex flex-col items-center transition-transform transform hover:scale-105 hover:shadow-2xl">
           <p className="font-semibold text-center text-lg">
             🛒 You have items in your cart! Ready to checkout?
           </p>
           <button
-            className="mt-3 w-full bg-white text-blue-600 font-semibold py-2 rounded-full hover:bg-blue-200 transition-colors"
+            className="mt-3 w-full bg-white text-indigo-600 font-semibold py-2 rounded-full hover:bg-indigo-200 transition-colors"
             onClick={() => {
               navigate("/cart");
             }}

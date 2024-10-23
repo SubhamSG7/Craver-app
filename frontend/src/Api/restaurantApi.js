@@ -4,9 +4,6 @@ const url=import.meta.env.VITE_BACKEND_API
 export const sendRestaurantData = createAsyncThunk(
   "restaurant/sendRestaurantData",
   async (formData, { rejectWithValue }) => {
-    for (let pairs of formData.entries()) {
-      console.log(pairs);
-    }
     try {
       const response = await axios.post(
         `${url}/api/restaurant`,
