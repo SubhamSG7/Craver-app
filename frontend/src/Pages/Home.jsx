@@ -7,12 +7,12 @@ function Home() {
   const { allRestaurant } = useSelector((state) => state.restaurant);
 
   return (
-    <div className="w-[100vw] ">
+    <div className="w-full  px-10 py-10">
       <div>
         <GetLocation />
-        <Slider className="h-[50vh] w-[100vw]" />
+        <Slider className="h-[50vh] w-full" />
       </div>
-      <div className="w-screen flex flex-wrap gap-2 justify-evenly mt-6">
+      <div className="w-full h-full flex flex-wrap gap-4 justify-evenly mt-6">
         {allRestaurant?.map((res) => ( 
           <RestaurantWrapper key={res._id} data={res} />
         ))}

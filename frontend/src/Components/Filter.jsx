@@ -17,7 +17,7 @@ function Filter() {
   }, [categories, dispatch]);
 
   return (
-    <form className="flex items-center space-x-4 p-4 bg-white shadow-md rounded-lg mb-3">
+    <form className="flex items-center flex-wrap space-x-4 p-4 bg-white shadow-md rounded-lg mb-3">
       <input
         type="text"
         required

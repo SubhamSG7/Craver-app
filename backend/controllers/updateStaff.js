@@ -1,4 +1,3 @@
-const express = require("express");
 const Staff=require("../models/staff");
 async function updatestaff(req,res){
     const staffUpdates=req.body;

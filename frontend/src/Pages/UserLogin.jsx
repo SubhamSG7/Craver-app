@@ -15,26 +15,30 @@ function UserLogin() {
   const { userData, validationErr, loginStatus, loginError } = useSelector(
     (state) => state.users
   );
+
   function handleLogin(e) {
     e.preventDefault();
     const data = { email: userData.email, password: userData.password };
     const isValidForm = !Object.values(validationErr).some((err) => err !== "");
     if (isValidForm) {
-      localStorage.setItem("role",'user')
+      localStorage.setItem("role", 'user');
       dispatch(loginUser(data));
     }
   }
+
   function handleValidation(e) {
     dispatch(checkValidation(e.target.name));
   }
+
   useEffect(() => {
     if (loginStatus === "succeeded") {
-      dispatch(clearUserField())
+      dispatch(clearUserField());
       navigate("/logged");
     }
   }, [navigate, loginStatus]);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="h-[70vh] flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-semibold text-center text-gray-700 mb-6">
           Login to Your Account
@@ -119,19 +123,19 @@ function UserLogin() {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border-b-2 border-blue-500 text-blue-500 bg-transparent font-semibold py-2 rounded-none hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
           >
-            {loginStatus === "loading" ? <ButtonLoader /> : "Signin"}
+            {loginStatus === "loading" ? <ButtonLoader /> : "Sign In"}
           </button>
         </form>
 
         <p className="text-center text-gray-600 mt-6">
-          Don't have an account?
-         <Link to="/signin">
-         <button className="text-blue-600 hover:underline">
-            Sign up
-          </button>
-         </Link>
+          Don't have an account?{" "}
+          <Link to="/signin">
+            <button className="text-blue-500 bg-transparent border-b-2 border-blue-500 text-blue-600 font-semibold hover:bg-blue-100 transition duration-200 rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+              Sign up
+            </button>
+          </Link>
         </p>
       </div>
     </div>

@@ -15,7 +15,7 @@ function LoginStaff() {
   const navigate = useNavigate();
   const { validationErr, userData, loginStatus, loginError, role } =
     useSelector((state) => state.users);
-    
+
   function handleLogIn(e) {
     e.preventDefault();
     const data = {
@@ -26,18 +26,20 @@ function LoginStaff() {
     };
     const isValidForm = !Object.values(validationErr).some((err) => err !== "");
     if (isValidForm) {
-      localStorage.setItem("role",role)
+      localStorage.setItem("role", role);
       dispatch(loginUser(data));
     }
   }
+
   useEffect(() => {
     if (loginStatus === "succeeded") {
-      dispatch(clearUserField())
+      dispatch(clearUserField());
       navigate(`/logged`);
     }
   }, [loginStatus, navigate]);
+
   return (
-    <div className="flex  flex-col justify-center items-center h-screen">
+    <div className="flex flex-col justify-center items-center h-[70vh]">
       {loginStatus === "failed" && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
           <strong className="font-bold">Error!</strong>
@@ -51,6 +53,7 @@ function LoginStaff() {
         onSubmit={handleLogIn}
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+
         <div className="mb-6">
           <label className="block text-gray-700 font-semibold mb-2">
             Select Role
@@ -66,10 +69,9 @@ function LoginStaff() {
             <option value="admin">Admin</option>
           </select>
         </div>
+
         <div className="mb-6">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Email
-          </label>
+          <label className="block text-gray-700 font-semibold mb-2">Email</label>
           <input
             type="email"
             name="email"
@@ -86,10 +88,9 @@ function LoginStaff() {
             <p className="text-red-500 text-sm">{validationErr.email}</p>
           )}
         </div>
+
         <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Password
-          </label>
+          <label className="block text-gray-700 font-semibold mb-2">Password</label>
           <input
             type="password"
             name="password"
@@ -109,7 +110,7 @@ function LoginStaff() {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-lg font-semibold hover:bg-blue-600 transition duration-300"
+          className="w-full border-b-2 border-blue-500 text-blue-500 bg-transparent font-semibold py-2 rounded-none hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
         >
           {loginStatus === "loading" ? <ButtonLoader /> : "Login"}
         </button>

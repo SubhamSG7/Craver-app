@@ -5,11 +5,11 @@ import Footer from "./Footer";
 
 function Wrapper() {
   return (
-    <>
+    <div className="w-[100%]">
       <Header />
       <Outlet />
       <Footer />
-    </>
+    </div>
   );
 }
 

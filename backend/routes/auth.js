@@ -14,7 +14,7 @@ const checkScope = () => {
       .json({ message: "Not Authorised User For This Page." });
     }
     const token =
-      req.cookies.token || req.header("Authorization")?.replace("Bearer ", "");
+      req.cookies.token;
     if (!token) {
       return res.status(401).json({ message: "No token provided" });
     }

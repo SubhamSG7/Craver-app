@@ -17,25 +17,25 @@ function Profile() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-300 via-gray-400 to-gray-500">
-      <div className="bg-gradient-to-b from-white to-gray-100 p-8 rounded-xl shadow-2xl max-w-md w-full text-center transform transition-transform hover:scale-105">
+    <div className="flex items-center justify-center h-[70vh]">
+      <div className="bg-gradient-to-b from-white to-gray-100 p-8 rounded-xl shadow-2xl shadow-black max-w-md w-full text-center transform transition-transform hover:scale-105">
         <h2 className="text-3xl font-bold mb-4 text-gray-900">
-          Welcome, {loggedUser?.scope}
+          Welcome {loggedUser?.scope.toUpperCase()}
         </h2>
         <img
           src="https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-cartoon-image-of-a-person-wearing-sunglasses-image_2875331.jpg"
           alt="Profile"
           className="w-32 h-32 rounded-full mx-auto mb-6 object-cover shadow-lg border-4 border-gray-300"
         />
-        <p className="text-xl font-semibold text-gray-700 mb-1">
+        <p className="text-2xl font-semibold text-gray-700 mb-1">
           {loggedUser?.name.toUpperCase()}
         </p>
-        <p className="text-gray-500 mb-6">{loggedUser?.email}</p>
+        <p className="text-gray-500 mb-6 text-xl">{loggedUser?.email}</p>
         <button
-          className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-3 px-6 rounded-full text-lg font-medium hover:bg-gradient-to-l hover:from-indigo-600 hover:to-purple-600 transition-all transform hover:scale-105 shadow-lg"
+          className="flex items-center justify-center gap-2 w-full bg-transparent border-b-2 border-red-900 text-gray-900 py-2 px-0 rounded-none text-lg font-medium hover:bg-red-200 transition-all duration-300"
           onClick={handleLogout}
         >
-          <FiLogOut className="text-xl" /> Logout
+          <FiLogOut className="text-4xl" /> Logout
         </button>
       </div>
     </div>

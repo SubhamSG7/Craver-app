@@ -7,7 +7,6 @@ import UserLogin from "../Pages/UserLogin";
 import UserSignIn from "../Pages/userSignIn";
 import SignUpStaff from "../Components/SignUpStaff";
 import LoginStaff from "../Components/LoginStaff";
-import StaffHome from "../Components/StaffHome";
 import PrivateRoute from "../Components/PrivateRoute";
 import AddRestaurant from "../Components/AddRestaurant";
 import { fetchRestaurants } from "./LoaderApi";
@@ -33,7 +32,6 @@ const routes = createBrowserRouter([
       { path: "usersignup", element: <UserSignIn /> },
       { path: "staffsignup", element: <SignUpStaff /> },
       { path: "stafflogin", element: <LoginStaff /> },
-      { path: "staffHome", element: <StaffHome /> },
       { path: "orders", element: <Orders /> },
       { path: "cart", element: <PrivateRoute>
         <Cart /> 

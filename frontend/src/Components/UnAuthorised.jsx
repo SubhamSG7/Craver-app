@@ -3,20 +3,21 @@ import { Link } from 'react-router-dom';
 
 function UnAuthorised() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-        <h1 className="text-2xl font-bold text-red-600 mb-4">Unauthorized Access</h1>
-        <p className="text-gray-700 mb-6">
-          You do not have permission to view this page. Please sign in or log in to continue.
+    <div className="flex items-center justify-center h-[70vh] bg-gray-100">
+      <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+        <h1 className="text-3xl font-bold text-red-600 mb-4">Unauthorized Access</h1>
+        <p className="text-gray-700 mb-6 font-sans font-bold">
+          We’re sorry, but it seems you do not have permission to access this page. 
+          If you believe this is an error, please consider.
         </p>
         <div className="flex justify-center space-x-4">
           <Link to="/signin">
-            <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-              Sign In
+            <button className="px-5 py-3 border-b-2 border-blue-500 text-blue-500 bg-transparent rounded-none transition duration-200 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">
+              Sign Up
             </button>
           </Link>
           <Link to="/login">
-            <button className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+            <button className="px-5 py-3 border-b-2 border-green-500 text-green-500 bg-transparent rounded-none transition duration-200 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50">
               Login
             </button>
           </Link>

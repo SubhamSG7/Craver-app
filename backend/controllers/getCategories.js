@@ -9,16 +9,9 @@ async function getCategories(req, res) {
         if (!restaurantData) {
             return res.status(404).json({ message: "Restaurant not found" });
         }
-
         const listOfCategoryID = restaurantData.category;
-
-        const allCategories = await Promise.all(
-            listOfCategoryID.map(async (val) => {
-                return await Category.findById(val);
-            })
-        );
-        res.json( allCategories );
-
+        const categories = await Category.find({ _id: { $in: listOfCategoryID } });
+        res.json(categories);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Internal Server Error" });
