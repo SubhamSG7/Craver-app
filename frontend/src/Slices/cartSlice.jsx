@@ -6,7 +6,7 @@ const cartSlice = createSlice({
   initialState: {
     cartList: {},
     cartToShow: [],
-    status:null
+    status: null,
   },
   reducers: {
     setCart: (state, action) => {
@@ -19,6 +19,9 @@ const cartSlice = createSlice({
           delete state.cartList[id];
         }
       }
+    },
+    setcartStatus: (state, action) => {
+      state.status = action.payload;
     },
     setCartToShow: (state, action) => {
       const categories = action.payload;
@@ -33,8 +36,9 @@ const cartSlice = createSlice({
         state.cartToShow = data;
       }
     },
-    emptyCartList:(state,action)=>{
-      state.cartList={}
+    emptyCartList: (state, action) => {
+      state.cartList = {};
+      state.cartToShow = [];
     },
     removeFromCart: (state, action) => {
       const itemId = action.payload;
@@ -47,23 +51,26 @@ const cartSlice = createSlice({
         console.log(`Item with id ${itemId} removed from the cart.`);
       }
     },
-    
   },
-  extraReducers:(builder)=>{
+  extraReducers: (builder) => {
     builder
-    .addCase(Checkout.pending,(state)=>{
-
-      state.status="loading"
-    })
-    .addCase(Checkout.fulfilled,(state,action)=>{
-      state.status="success"
-    })
-    .addCase(Checkout.rejected,(state,action)=>{
-      
-      state.status=action.payload
-    })
-  }
+      .addCase(Checkout.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(Checkout.fulfilled, (state, action) => {
+        state.status = "success";
+      })
+      .addCase(Checkout.rejected, (state, action) => {
+        state.status = action.payload;
+      });
+  },
 });
 
-export const { setCart, setCartToShow, removeFromCart,emptyCartList } = cartSlice.actions;
+export const {
+  setCart,
+  setCartToShow,
+  removeFromCart,
+  emptyCartList,
+  setcartStatus,
+} = cartSlice.actions;
 export default cartSlice.reducer;

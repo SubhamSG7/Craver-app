@@ -10,10 +10,10 @@ function Home() {
     <div className="w-full  px-10 py-10">
       <div>
         <GetLocation />
-        <Slider className="h-[50vh] w-full" />
+        <Slider />
       </div>
-      <div className="w-full h-full flex flex-wrap gap-4 justify-evenly mt-6">
-        {allRestaurant?.map((res) => ( 
+      <div className="w-full h-full flex flex-wrap gap-4 mt-6 justify-between">
+        {allRestaurant?.map((res) => (
           <RestaurantWrapper key={res._id} data={res} />
         ))}
       </div>

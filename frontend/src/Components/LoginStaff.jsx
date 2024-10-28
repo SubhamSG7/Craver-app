@@ -71,7 +71,9 @@ function LoginStaff() {
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 font-semibold mb-2">Email</label>
+          <label className="block text-gray-700 font-semibold mb-2">
+            Email
+          </label>
           <input
             type="email"
             name="email"
@@ -90,7 +92,9 @@ function LoginStaff() {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">Password</label>
+          <label className="block text-gray-700 font-semibold mb-2">
+            Password
+          </label>
           <input
             type="password"
             name="password"

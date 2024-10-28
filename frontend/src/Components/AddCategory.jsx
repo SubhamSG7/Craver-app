@@ -1,17 +1,25 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PageLoaders from "../Loaders/PageLoaders";
-import { setDish, resetDish, setRestaurant } from "../Slices/categorySlice";
+import {
+  setDish,
+  resetDish,
+  setRestaurant,
+  setStatus,
+} from "../Slices/categorySlice";
 import { SendCategory } from "../Api/AddCategory";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FaPlus, FaHome } from "react-icons/fa";
 
 function AddCategory() {
-  const { dish, restaurant, status, apiStatus } = useSelector((state) => state.category);
+  const { dish, restaurant, status, apiStatus } = useSelector(
+    (state) => state.category
+  );
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const url = import.meta.env.VITE_BACKEND_API;
 
@@ -36,7 +44,7 @@ function AddCategory() {
     dispatch(resetDish());
     setSelectedImage(null);
     setImagePreview(null);
-    e.target.reset(); 
+    e.target.reset();
   };
 
   const handleImageChange = (e) => {
@@ -53,6 +61,9 @@ function AddCategory() {
       dispatch(setRestaurant(resp?.data));
     } catch (error) {
       console.error(error);
+      if (error.response.data.message) {
+        dispatch(setStatus(error.response.data.message));
+      }
     }
   };
 
@@ -61,6 +72,24 @@ function AddCategory() {
   }, []);
 
   if (status === "loading") return <PageLoaders />;
+  if (status === "Waiting For Admin to Assign Role") {
+    return (
+      <div className="flex items-center justify-center h-[70vh] bg-gray-100">
+        <div className="text-center p-8 bg-white shadow-lg rounded-lg">
+          <p className="text-2xl font-bold text-gray-800 mb-4">{status}</p>
+          <p className="text-gray-600 mb-6">
+            Please wait while the admin assigns your role.
+          </p>
+          <button
+            onClick={() => navigate("/")}
+            className="text-lg font-semibold text-blue-600 border-b-2 border-blue-600 pb-1 hover:border-blue-800 hover:text-blue-800 transition duration-200"
+          >
+            Home
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative bg-gray-200 min-h-screen">
@@ -80,8 +109,11 @@ function AddCategory() {
         onSubmit={handleDishSubmission}
         encType="multipart/form-data"
       >
-        <h2 className="text-xl font-semibold text-[#333333] mb-4">Add a New Dish</h2>
+        <h2 className="text-xl font-semibold text-[#333333] mb-4">
+          Add a New Dish
+        </h2>
 
+        {/* Input fields */}
         <div className="mb-4">
           <label className="block text-[#555555] mb-1">Dish Name</label>
           <input
@@ -178,15 +210,19 @@ function AddCategory() {
             accept="image/*"
           />
           {imagePreview && (
-            <img src={imagePreview} alt="Preview" className="mt-4 w-full rounded-lg" />
+            <img
+              src={imagePreview}
+              alt="Preview"
+              className="mt-4 w-full rounded-lg"
+            />
           )}
         </div>
 
         <button
           type="submit"
-          className="w-full p-3 bg-[#007BFF] text-white rounded-lg hover:bg-[#0056b3] transition duration-200"
+          className="w-full p-3 border-b-2 border-[#007BFF] text-[#007BFF] rounded-b hover:border-blue-600 hover:text-blue-600 transition duration-200 flex items-center justify-center"
         >
-          Add Dish
+          <FaPlus className="mr-2" /> Add Dish
         </button>
       </form>
 
@@ -196,15 +232,16 @@ function AddCategory() {
           <div className="mt-4 flex justify-between">
             <button
               onClick={() => setFormSubmitted(false)}
-              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
+              className="text-sm font-semibold text-green-600 hover:underline"
             >
-              Add More
+              Add Another
             </button>
-            <Link to="/"><button
-              className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition"
+            <Link
+              to="/"
+              className="text-sm font-semibold text-green-600 hover:underline"
             >
-              Go Home
-            </button></Link>
+              <FaHome className="inline mr-1" /> Home
+            </Link>
           </div>
         </div>
       )}

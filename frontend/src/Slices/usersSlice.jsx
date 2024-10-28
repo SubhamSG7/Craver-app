@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { getAddress } from "../Api/getAddress";
 
 export const signInUser = createAsyncThunk(
@@ -38,12 +38,14 @@ export const loginUser = createAsyncThunk(
 );
 
 const regex = {
+  name: /^[A-Za-z\s]+$/,
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   phone: /^\+91[1-9]{1}[0-9]{9}$|^[1-9]{1}[0-9]{9}$/,
-  password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/,
+  password: /^(?=.*[a-zA-Z0-9]).{7,}$/,
 };
 
 const errMessage = {
+  name: "Name should be provided without any special characters",
   email: "Provide a valid email",
   phone: "Phone number must be 10 characters only, containing numbers",
   password: "Password should be minimum 6 characters and alphanumeric",
@@ -60,8 +62,8 @@ const usersSlice = createSlice({
     loginError: null,
     role: null,
     loggedUser: null,
-    address:null,
-    status:null
+    address: null,
+    status: null,
   },
   reducers: {
     updateUserField: (state, action) => {
@@ -73,18 +75,21 @@ const usersSlice = createSlice({
     setRole: (state, action) => {
       state.role = action.payload;
     },
+    setSigninStatus: (state, action) => {
+      state.signInStatus = action.payload;
+    },
     setLoggedUser: (state, action) => {
       state.loggedUser = action.payload;
     },
-    clearUserField:(state,action)=>{
-      state.userData= { name: "", email: "", phone: "", password: "" }
-      state.loginStatus=null;
+    clearUserField: (state, action) => {
+      state.userData = { name: "", email: "", phone: "", password: "" };
+      state.loginStatus = null;
     },
 
     checkValidation: (state, action) => {
       const field = action.payload;
       const value = state.userData[field];
-
+      console.log("chla");
       if (!regex[field].test(value)) {
         if (!state.validationErr[field]) {
           state.validationErr[field] = errMessage[field];
@@ -103,12 +108,12 @@ const usersSlice = createSlice({
       })
       .addCase(signInUser.fulfilled, (state, action) => {
         state.signInStatus = "succeeded";
-        toast.success("Sign in successful!"); 
+        toast.success("Sign in successful!");
       })
       .addCase(signInUser.rejected, (state, action) => {
         state.signInStatus = "failed";
         state.signInError = action.payload;
-        toast.error(`Sign in failed: ${action.payload}`); 
+        toast.error(`Sign in failed: ${action.payload}`);
       })
       .addCase(loginUser.pending, (state) => {
         state.loginStatus = "loading";
@@ -116,7 +121,7 @@ const usersSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loginStatus = "succeeded";
         state.userData = action.payload.user;
-        toast.success("Login successful!"); 
+        toast.success("Login successful!");
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loginStatus = "failed";
@@ -132,11 +137,17 @@ const usersSlice = createSlice({
       })
       .addCase(getAddress.rejected, (state, action) => {
         state.status = "failed";
-      })
-      
+      });
   },
 });
 
-export const { updateUserField, checkValidation, setRole, setLoggedUser ,clearUserField} = usersSlice.actions;
+export const {
+  updateUserField,
+  checkValidation,
+  setRole,
+  setLoggedUser,
+  clearUserField,
+  setSigninStatus,
+} = usersSlice.actions;
 
 export default usersSlice.reducer;

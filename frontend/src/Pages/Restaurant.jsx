@@ -18,8 +18,8 @@ function Restaurant() {
   const id = location.pathname.split("/")[2];
 
   useEffect(() => {
-    dispatch(setSelectedRestaurantId(id));   // saving id
-    dispatch(GetCategory(id));    // api call to get the category
+    dispatch(setSelectedRestaurantId(id)); // saving id
+    dispatch(GetCategory(id)); // api call to get the category
   }, [dispatch, id]);
 
   if (apiStatus === "loading") {
@@ -47,7 +47,7 @@ function Restaurant() {
           dataToRender.map((val) => (
             <div
               key={val?._id}
-              className=" w-[30%] flex flex-wrap justify-evenly  min-h-[300px] transform hover:scale-105 transition-transform duration-300 mt-4"
+              className=" w-[30%] flex flex-wrap justify-between  min-h-[300px] transform hover:scale-105 transition-transform duration-300 mt-4"
             >
               <CategoryWrapper key={val._id} data={val} />
             </div>

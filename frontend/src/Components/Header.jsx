@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import logo from "../assets/logo.png"
+import logo from "../assets/logo.png";
 
 function Header() {
   const location = useLocation();
@@ -17,9 +17,7 @@ function Header() {
   };
 
   const getButtonStyle = (locate) => {
-    return location.pathname === locate
-      ? "text-black"
-      : "text-white";
+    return location.pathname === locate ? "text-black" : "text-white";
   };
 
   const toggleMenu = () => {
@@ -42,7 +40,11 @@ function Header() {
         </button>
       </div>
 
-      <nav className={`w-full custom-md:w-auto ${isMenuOpen ? "block" : "hidden"} custom-md:flex`}>
+      <nav
+        className={`w-full custom-md:w-auto ${
+          isMenuOpen ? "block" : "hidden"
+        } custom-md:flex`}
+      >
         <ul className="m-3 flex flex-col gap-3 custom-md:flex-row items-center justify-center custom-md:space-x-4 space-y-2 custom-md:space-y-0">
           {role ? (
             roleBased[role]?.map((val) => (

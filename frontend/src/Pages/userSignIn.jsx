@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
   checkValidation,
+  setSigninStatus,
   signInUser,
   updateUserField,
 } from "../Slices/usersSlice";
@@ -29,6 +30,7 @@ function UserSignIn() {
 
   useEffect(() => {
     if (signInStatus === "succeeded") {
+      dispatch(setSigninStatus(null));
       navigate("/login");
     }
   }, [signInStatus, navigate]);
@@ -60,7 +62,11 @@ function UserSignIn() {
                 )
               }
               required
+              onBlur={(e) => handleValidation(e)}
             />
+            {validationErr.name && (
+              <p className="text-red-500 text-sm">{validationErr.name}</p>
+            )}
           </div>
 
           <div>
