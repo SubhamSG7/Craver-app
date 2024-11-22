@@ -18,8 +18,20 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.json());
 const corsOptions = {
-  origin: "https://craver-nine.vercel.app/",
-  credentials: true,
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      "https://craver-nine.vercel.app",
+      "https://craver-app.vercel.app", // Add the new frontend URL here
+    ];
+
+    // Check if the incoming origin is in the list of allowed origins
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // Allow cookies and authorization headers
 };
 
 app.use(cors(corsOptions));
