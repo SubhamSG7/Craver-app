@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export async function fetchRestaurants() {
-  let response = await axios.get(`http://localhost:3000/api/get/restaurants`);
+  const url = import.meta.env.VITE_BACKEND_API;
+  let response = await axios.get(`${url}/api/get/restaurants`);
   return response.data;
 }

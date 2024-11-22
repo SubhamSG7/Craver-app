@@ -9,9 +9,10 @@ export const signInStaff = createAsyncThunk(
       password: incomingData.password,
     };
     const { role } = incomingData;
+    const url = import.meta.env.VITE_BACKEND_API;
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/${role}/register`,
+        `${url}/api/${role}/register`,
         userData
       );
       return response.data;

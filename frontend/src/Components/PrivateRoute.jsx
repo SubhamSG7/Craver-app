@@ -7,20 +7,23 @@ import UnAuthorised from "./UnAuthorised";
 import { useLocation } from "react-router-dom";
 
 function PrivateRoute({ children }) {
-  const location=useLocation();
-  const accessPath=location.pathname;
-  
-  const {loggedUser} = useSelector((state) => state.users);
-  const role=localStorage.getItem("role");
+  const location = useLocation();
+  const accessPath = location.pathname;
+
+  const { loggedUser } = useSelector((state) => state.users);
+  const role = localStorage.getItem("role");
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   async function checkAuth() {
+    const url = import.meta.env.VITE_BACKEND_API;
     try {
-      const res = await axios.get(`http://localhost:3000/api/scope/${role}`, {params: { accessPath },
-        withCredentials: true});
+      const res = await axios.get(`${url}/api/scope/${role}`, {
+        params: { accessPath },
+        withCredentials: true,
+      });
       const { authorised } = res?.data;
-      const {id,scope,name,email}  = res.data?.user
-      dispatch(setLoggedUser({ authorised, id ,scope,name,email}));
+      const { id, scope, name, email } = res.data?.user;
+      dispatch(setLoggedUser({ authorised, id, scope, name, email }));
     } catch (error) {
       console.log("Not authenticated");
       dispatch(setLoggedUser({ authorised: false, userid: null }));
@@ -33,11 +36,11 @@ function PrivateRoute({ children }) {
   }, []);
 
   if (loading) {
-    return < PageLoaders/>;
+    return <PageLoaders />;
   }
 
   if (!loggedUser.authorised) {
-    return <UnAuthorised/>
+    return <UnAuthorised />;
   }
 
   return <>{children}</>;

@@ -7,10 +7,11 @@ export const signInUser = createAsyncThunk(
   "users/signIn",
   async (userData, { rejectWithValue }) => {
     try {
+      const url1 = import.meta.env.VITE_BACKEND_API;
       const url =
         userData.role === undefined
-          ? "http://localhost:3000/api/users/register"
-          : `http://localhost:3000/api/${userData.role}/register`;
+          ? `${url1}/api/users/register`
+          : `${url1}/api/${userData.role}/register`;
       const response = await axios.post(url, userData);
       return response.data;
     } catch (error) {
@@ -23,10 +24,11 @@ export const loginUser = createAsyncThunk(
   "users/loginUser",
   async (userData, { rejectWithValue }) => {
     try {
+      const url1 = import.meta.env.VITE_BACKEND_API;
       const url =
         userData.role === undefined
-          ? "http://localhost:3000/api/users/login"
-          : `http://localhost:3000/api/${userData.role}/login`;
+          ? `${url1}/api/users/login`
+          : `${url1}/api/${userData.role}/login`;
       const response = await axios.post(url, userData, {
         withCredentials: true,
       });

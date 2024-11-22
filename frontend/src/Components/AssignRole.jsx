@@ -18,13 +18,12 @@ function AssignRole() {
     (state) => state.loader
   );
   const dispatch = useDispatch();
-
+  const url = import.meta.env.VITE_BACKEND_API;
   async function fetchRoleToAssign() {
     try {
-      const resp = await axios.get(
-        "http://localhost:3000/api/admin/assignstaff",
-        { withCredentials: true }
-      );
+      const resp = await axios.get(`${url}/api/admin/assignstaff`, {
+        withCredentials: true,
+      });
       console.log(resp.data);
       if (resp) {
         dispatch(setStaffData(resp?.data?.staffData));

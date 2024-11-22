@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.json());
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://craver-nine.vercel.app/",
   credentials: true,
 };
 
@@ -37,5 +37,4 @@ app.get("/", (req, res) => res.send("Hello Server!"));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-
-module.exports=app;
+module.exports = app;
