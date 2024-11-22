@@ -110,7 +110,7 @@ router.post("/login", async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       maxAge: 60 * 60 * 1000,
     });
 
@@ -121,6 +121,6 @@ router.post("/login", async (req, res) => {
   }
 });
 router.get("/getrestaurant", getrestaurant);
-router.post("/addcategory", upload.single('image'), saveCategory);
+router.post("/addcategory", upload.single("image"), saveCategory);
 
 module.exports = router;
