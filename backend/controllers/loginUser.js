@@ -1,9 +1,9 @@
 const User = require("../models/user");
-const jwt=require("jsonwebtoken")
-const bcrypt=require("bcrypt")
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
-async function loginUser(req,res){
-    const { email, password } = req.body;
+async function loginUser(req, res) {
+  const { email, password } = req.body;
   try {
     let user = await User.findOne({ email });
     if (!user) {
@@ -38,5 +38,4 @@ async function loginUser(req,res){
   }
 }
 
-
-module.exports=loginUser;
+module.exports = loginUser;
