@@ -7,7 +7,9 @@ import { FaLocationCrosshairs } from "react-icons/fa6";
 
 function GetLocation() {
   const dispatch = useDispatch();
-  const { userLongitude, userLatitude } = useSelector((state) => state.restaurant);
+  const { userLongitude, userLatitude } = useSelector(
+    (state) => state.restaurant
+  );
   const data = useLoaderData();
   const [city, setCity] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,7 +17,13 @@ function GetLocation() {
 
   const defaultLatitude = 26.9124;
   const defaultLongitude = 75.7873;
-
+  function handleCityChange(e) {
+    if (e.target.value === "jaipur") {
+      const latitude = 26.9124;
+      const longitude = 75.7873;
+      dispatch(setLocation({ latitude, longitude }));
+    }
+  }
   useEffect(() => {
     handleGetLocation();
   }, []);
@@ -37,14 +45,23 @@ function GetLocation() {
         },
         (err) => {
           console.error(err.message);
-          dispatch(setLocation({ latitude: defaultLatitude, longitude: defaultLongitude }));
+          dispatch(
+            setLocation({
+              latitude: defaultLatitude,
+              longitude: defaultLongitude,
+            })
+          );
           setError("Unable to retrieve location. Using default location.");
           setLoading(false);
         }
       );
     } else {
-      setError("Geolocation is not supported by this browser. Using default location.");
-      dispatch(setLocation({ latitude: defaultLatitude, longitude: defaultLongitude }));
+      setError(
+        "Geolocation is not supported by this browser. Using default location."
+      );
+      dispatch(
+        setLocation({ latitude: defaultLatitude, longitude: defaultLongitude })
+      );
       setLoading(false);
     }
   };
@@ -58,7 +75,10 @@ function GetLocation() {
       const results = response.data.results;
 
       if (results.length > 0) {
-        const city = results[0].components.city || results[0].components.town || results[0].components.village;
+        const city =
+          results[0].components.city ||
+          results[0].components.town ||
+          results[0].components.village;
         setCity(city);
       } else {
         setError("No results found for reverse geocoding.");
@@ -73,6 +93,12 @@ function GetLocation() {
 
   return (
     <div className="flex flex-col items-center justify-center">
+      <select onChange={(e) => handleCityChange(e)}>
+        <option value="Choose City">Choose City</option>
+        <option value="jaipur">Jaipur</option>
+        <option value="delhi">Delhi</option>
+        <option value="Kolkata">Kolkata</option>
+      </select>
       {loading ? (
         <p className="text-xl animate-pulse">Fetching your city name...</p>
       ) : error ? (
