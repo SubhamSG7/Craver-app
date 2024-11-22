@@ -28,7 +28,9 @@ async function loginUser(req, res) {
 
     res.cookie("token", token, {
       httpOnly: true,
+      sameSite: "none",
       maxAge: 60 * 60 * 1000,
+      secure: true,
     });
 
     res.status(200).json({ msg: "Login successful", user });
